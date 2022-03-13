@@ -1,0 +1,86 @@
+@import '../../styles/common.scss';
+
+.pool {
+  @include resizeFull(90%);
+  padding: 0 5%;
+
+  div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 2rem 0;
+  }
+}
+
+.pool-block {
+  width: 8.2rem;
+  height: 9.2rem;
+  border: gray 2px solid;
+  border-radius: 1rem;
+
+  margin: 0.1rem;
+  padding: 0.7rem;
+
+  opacity: 0.9;
+  background: whitesmoke;
+  background-size: contain;
+  background-position: 0 1.5rem;
+  background-repeat: no-repeat;
+
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &.checked {
+    opacity: 1;
+    border-color: #e60000;
+  }
+}
+
+.title {
+  font-size: 1.6rem;
+  margin-bottom: 0.3rem;
+}
+
+
+.warpper {
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
+
+.body {
+  z-index: 1;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    background: #ee9ca7;
+    background: -webkit-linear-gradient(to top, #ffdde1, #ee9ca7);
+    background: linear-gradient(to top, #ffdde1, #ee9ca7);
+
+
+    padding: 2rem;
+    border-radius: 1rem;
+
+    @include resize(80%);
+  }
+}

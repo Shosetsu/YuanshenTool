@@ -1,0 +1,20 @@
+@import '../../styles/common.scss';
+
+a {
+  @include resize(75%);
+  background: #f2fcfe;
+  border: #d4d3dd 1px solid;
+  border-radius: 5rem;
+
+  font-size: 1.2rem;
+  padding: 2rem;
+  margin: 0.5rem;
+
+  text-align: center;
+
+  &:hover {
+    background: #60bff1;
+    opacity: 0.5;
+    color: #eee;
+  }
+}

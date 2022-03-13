@@ -1,0 +1,7 @@
+<main>
+  <h1>原神工具集</h1>
+  <section>
+    <a *ngFor="let link of links" [routerLink]="link.route" (click)="save(link.route)"
+      href="javascrpit:void">{{link.text}}{{link.route===session.lastPage?'★':''}}</a>
+  </section>
+</main>

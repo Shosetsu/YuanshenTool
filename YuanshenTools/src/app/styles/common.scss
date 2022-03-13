@@ -1,0 +1,46 @@
+@mixin web {
+  @media screen and (min-width:851px) {
+    @content;
+  }
+}
+
+@mixin tb {
+  @media screen and (min-width:451px) and (max-width:850px) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media screen and (max-width:450px) {
+    @content;
+  }
+}
+
+
+@mixin resize($width:100%) {
+  @include web {
+    width: calc($width / 3);
+  }
+
+  @include tb {
+    width: calc($width / 1.5);
+  }
+
+  @include sm {
+    width: calc($width);
+  }
+}
+
+@mixin resizeFull($width:100%) {
+  @include web {
+    width: calc($width / 1.5);
+  }
+
+  @include tb {
+    width: calc($width / 1.2);
+  }
+
+  @include sm {
+    width: calc($width);
+  }
+}

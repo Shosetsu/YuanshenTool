@@ -1,0 +1,59 @@
+html {
+  background: #ffafbd;
+  background: -webkit-linear-gradient(to top, #ffc3a0, #ffafbd);
+  background: linear-gradient(to top, #ffc3a0, #ffafbd);
+  min-height: 100vh;
+
+  box-sizing: content-box;
+}
+
+body {
+  font-size: 10px;
+  color: #333;
+}
+
+main,
+section {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  width: 100%;
+  max-width: 102.4rem;
+  margin: 0 auto;
+
+  &.row {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+h1 {
+  font-size: 3rem;
+  margin: 2rem;
+}
+
+p {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+a,
+button {
+  text-decoration: none;
+  cursor: pointer;
+  color: #333;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+button {
+  width: 9.6rem;
+  height: 3.2rem;
+  border-radius: 3rem;
+  border: #e60000 0.1rem solid;
+}
