@@ -4,6 +4,13 @@
     <div class="pool">
       <p class="title">随机池</p>
       <p>从下面的列表中勾选中所有你想要随机的树脂消耗目标。</p>
+      <p class="buttons">
+        <button class="normal" (click)="checkAll()">{{isAllSelect()?'全部取消':'全部选中'}}</button>
+        <button class="normal" (click)="reverse()">全部反选</button>
+        <button class="normal" (click)="loadProfile(profile.value)">导入</button>
+        <button class="normal" (click)="profile.value=outputProfile();profile.select()">导出</button>
+        <input placeholder="复选配置导入/导出用…" #profile>
+      </p>
       <div>
         <label *ngFor="let item of pools" class="pool-block" [class.checked]="isCheckedPool(item.value)"
           [style.background-image]="'url(\'assets/rt/'+item.value+'.webp\')'">
@@ -16,14 +23,16 @@
       <label><input type="checkbox" [(ngModel)]="session.mutil" (change)="save()">是否每次独立随机？</label>
     </div> -->
   </section>
-  <section class="mb5">
-    <button (click)="roll()">开选！</button>
+  <section class="mb5 row">
+    <button class="back" routerLink="/">返回</button>
+    <button class="primary" (click)="roll()">开选！</button>
   </section>
 </main>
 <div *ngIf="result" (click)="result=''">
   <div class=" warpper"></div>
   <div class="body">
-    <div class="text">今天刷<div class="pool-block" [style.background-image]="'url(\'assets/rt/'+result+'.webp\')'">
+    <div class="text">今天刷<div class="pool-block checked"
+        [style.background-image]="'url(\'assets/rt/'+result+'.webp\')'">
         <span>{{resultName}}</span></div>吧！</div>
   </div>
 </div>

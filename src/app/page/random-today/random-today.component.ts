@@ -11,8 +11,9 @@ import { DataService } from 'src/app/core/data.service';
   styleUrls: ['./random-today.component.scss'],
 })
 export class RandomTodayComponent {
-  session: { memoried: string[]; mutil: boolean } =
-    this.data.getValue(Constants.ROLL_TODAY_KEY) || {};
+  session: { memoried: string[] } = this.data.getValue(
+    Constants.ROLL_TODAY_KEY
+  ) || { memoried: [] };
 
   pools = [
     { value: 'anemo', label: '风本/少女' },
@@ -23,9 +24,9 @@ export class RandomTodayComponent {
     { value: 'geo', label: '岩本/逆飞' },
     { value: 'physical', label: '千岩/苍白' },
     { value: 'electro2', label: '绝缘/追忆' },
-    { value: 'heal', label: '防御/海染' },
-    { value: 'gold', label: '金币花' },
-    { value: 'exp', label: '经验花' },
+    { value: 'heal', label: '华章/海染' },
+    { value: 'gold', label: '金币地脉花' },
+    { value: 'exp', label: '经验地脉花' },
   ];
 
   result = '';
@@ -34,15 +35,14 @@ export class RandomTodayComponent {
   constructor(private data: DataService) {}
 
   isCheckedPool(key: string): boolean {
-    return (this.session.memoried || []).includes(key);
+    return this.session.memoried.includes(key);
   }
 
   changePool(key: string): void {
-    const hasIndex = (this.session.memoried || []).indexOf(key);
+    const hasIndex = this.session.memoried.indexOf(key);
     if (hasIndex !== -1) {
       this.session.memoried.splice(hasIndex, 1);
     } else {
-      if (!this.session.memoried) this.session.memoried = [];
       this.session.memoried.push(key);
       this.save();
     }
@@ -59,5 +59,42 @@ export class RandomTodayComponent {
       ];
     this.resultName =
       this.pools.find((e) => e.value === this.result)?.label || '';
+  }
+
+  isAllSelect(): boolean {
+    return this.pools.every((pool) =>
+      this.session.memoried.includes(pool.value)
+    );
+  }
+
+  checkAll(): void {
+    if (this.isAllSelect()) {
+      this.session.memoried = [];
+    } else {
+      this.session.memoried = this.pools.map((pool) => pool.value);
+    }
+  }
+
+  reverse(): void {
+    this.pools.map((pool) => this.changePool(pool.value));
+  }
+
+  loadProfile(profile: string): void {
+    try {
+      const input: string[] = JSON.parse(atob(profile));
+      const result = input.filter((item) =>
+        this.pools.find((pool) => pool.value === item)
+      );
+      if (result) {
+        this.session.memoried = result;
+        this.save();
+      }
+    } catch (e) {
+      // TODO output error!
+    }
+  }
+
+  outputProfile(): string {
+    return btoa(JSON.stringify(this.session.memoried));
   }
 }

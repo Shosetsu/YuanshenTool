@@ -42,18 +42,50 @@ p {
 
 a,
 button {
+  outline: none;
   text-decoration: none;
   cursor: pointer;
   color: #333;
+  background-color: #fff;
 
   &:hover {
     opacity: 0.8;
   }
 }
 
+input {
+  outline: none;
+}
+
 button {
-  width: 9.6rem;
-  height: 3.2rem;
-  border-radius: 3rem;
-  border: #e60000 0.1rem solid;
+  &.primary {
+    width: 9.6rem;
+    height: 3.2rem;
+    border-radius: 3rem;
+    border: #e60000 0.1rem solid;
+  }
+
+  &.back {
+    width: 9.6rem;
+    height: 3.2rem;
+    border-radius: 3rem;
+    border: #ccc 0.1rem solid;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &::before {
+      content: "";
+      height: 1.2rem;
+      width: 1.2rem;
+      background: url(assets/back.svg) no-repeat center;
+      background-size: cover;
+      margin-right: 2rem;
+    }
+  }
+
+  ~button {
+    margin-left: 1rem;
+  }
 }
