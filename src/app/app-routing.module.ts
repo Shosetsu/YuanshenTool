@@ -14,6 +14,7 @@ const routes: Routes = [
     // resolve: { data: LoadResolver },
     component: MenuComponent,
   },
+  { path: '**', pathMatch: 'full', redirectTo: '' },
 ];
 
 @NgModule({

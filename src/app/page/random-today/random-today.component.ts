@@ -58,10 +58,6 @@ export class RandomTodayComponent {
         Math.floor(Math.random() * this.session.memoried.length)
       ];
     this.resultName =
-      this.pools.find((e) => {
-        e.value === this.result;
-      })?.label || '';
-
-    console.log('答案是：', this.result);
+      this.pools.find((e) => e.value === this.result)?.label || '';
   }
 }

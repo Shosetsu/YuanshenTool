@@ -16,7 +16,7 @@
       <label><input type="checkbox" [(ngModel)]="session.mutil" (change)="save()">是否每次独立随机？</label>
     </div> -->
   </section>
-  <section>
+  <section class="mb5">
     <button (click)="roll()">开选！</button>
   </section>
 </main>
@@ -24,6 +24,6 @@
   <div class=" warpper"></div>
   <div class="body">
     <div class="text">今天刷<div class="pool-block" [style.background-image]="'url(\'assets/rt/'+result+'.webp\')'">
-        {{resultName}}</div>吧！</div>
+        <span>{{resultName}}</span></div>吧！</div>
   </div>
 </div>

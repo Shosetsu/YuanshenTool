@@ -45,20 +45,24 @@
   margin-bottom: 0.3rem;
 }
 
+.mb5{
+  margin-bottom: 5rem;
+}
+
 
 .warpper {
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.4);
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
+  position: fixed;
   top: 0;
+  bottom: 0;
   left: 0;
+  right: 0;
 }
 
 .body {
   z-index: 1;
-  position: absolute;
+  position: fixed;
   width: 100vw;
   height: 100vh;
   top: 0;
@@ -82,5 +86,9 @@
     border-radius: 1rem;
 
     @include resize(80%);
+
+    span{
+      font-size: 1rem;
+    }
   }
 }
