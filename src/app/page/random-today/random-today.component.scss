@@ -23,6 +23,19 @@
     }
   }
 
+  .filter {
+    margin: 0.5rem 0.2rem 0;
+    font-size: 1rem;
+
+    :not(:last-child) {
+      margin-right: 1rem;
+    }
+
+    label,input {
+      cursor: pointer;
+    }
+  }
+
   div {
     display: flex;
     flex-wrap: wrap;

@@ -11,8 +11,14 @@
         <button class="normal" (click)="profile.value=outputProfile();profile.select()">导出</button>
         <input placeholder="复选配置导入/导出用…" #profile>
       </p>
+      <p class="filter">
+        <label><input type="checkbox" [(ngModel)]="filters['artifacts']" (change)="save()">圣遗物</label>
+        <label><input type="checkbox" [(ngModel)]="filters['base']" (change)="save()">基础资源</label>
+        <label><input type="checkbox" [(ngModel)]="filters['boss']" (change)="save()">角色突破素材</label>
+      </p>
       <div>
-        <label *ngFor="let item of pools" class="pool-block" [class.checked]="isCheckedPool(item.value)"
+        <label *ngFor="let item of pools" [hidden]="!filters[item.type]" class="pool-block"
+          [class.checked]="isCheckedPool(item.value)"
           [style.background-image]="'url(\'assets/rt/'+item.value+'.webp\')'">
           <input type="checkbox" [value]="item.label" (change)="changePool(item.value)" hidden>
           <p>{{item.label}}</p>

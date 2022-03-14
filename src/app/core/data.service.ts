@@ -1,4 +1,3 @@
-import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -30,11 +29,12 @@ export class DataService {
     localStorage.clear();
   }
 
-  getValue(key: string): any {
-    let value = '';
+  getValue<T>(key: string): T {
+    let value;
     try {
       value = JSON.parse(atob(this.data[key]));
     } catch {}
+
     return value;
   }
 
