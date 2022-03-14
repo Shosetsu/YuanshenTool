@@ -73,6 +73,7 @@ export class RandomTodayComponent {
     } else {
       this.session.memoried = this.pools.map((pool) => pool.value);
     }
+    this.save();
   }
 
   reverse(): void {
