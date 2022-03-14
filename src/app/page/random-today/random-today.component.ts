@@ -15,6 +15,13 @@ export class RandomTodayComponent implements OnInit {
   memoried: string[] = [];
   filters: { [type: string]: boolean } = {};
 
+  get rolledList(): string[] {
+    return this.memoried.filter(
+      (item) =>
+        this.filters[this.pools.find((e) => e.value === item)?.type || '']
+    );
+  }
+
   pools = [
     { value: 'anemo', label: '风本/少女', type: 'artifacts' },
     { value: 'cryo', label: '冰本/水本', type: 'artifacts' },
@@ -78,8 +85,7 @@ export class RandomTodayComponent implements OnInit {
   }
 
   roll(): void {
-    this.result =
-      this.memoried[Math.floor(Math.random() * this.memoried.length)];
+    this.result = this.rolledList[Math.floor(Math.random() * this.rolledList.length)];
     this.resultName =
       this.pools.find((e) => e.value === this.result)?.label || '';
   }
