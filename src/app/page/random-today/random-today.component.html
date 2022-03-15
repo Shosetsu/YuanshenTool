@@ -15,11 +15,12 @@
         <label><input type="checkbox" [(ngModel)]="filters['artifacts']" (change)="save()">圣遗物</label>
         <label><input type="checkbox" [(ngModel)]="filters['base']" (change)="save()">基础资源</label>
         <label><input type="checkbox" [(ngModel)]="filters['boss']" (change)="save()">角色突破素材</label>
+        <label><input type="checkbox" [(ngModel)]="filters['other']" (change)="save()">天赋/武器素材</label>
       </p>
       <div>
         <label *ngFor="let item of pools" [hidden]="!filters[item.type]" class="pool-block"
           [class.checked]="isCheckedPool(item.value)"
-          [style.background-image]="'url(\'assets/rt/'+item.value+'.webp\')'">
+          [style.background-image]="'url(\'assets/rt/'+(item.target||item.value)+'.webp\')'">
           <input type="checkbox" [value]="item.label" (change)="changePool(item.value)" hidden>
           <p>{{item.label}}</p>
         </label>
@@ -31,7 +32,7 @@
   </section>
   <section class="mb5 row">
     <button class="back" routerLink="/">返回</button>
-    <button class="primary" (click)="roll()">开选！</button>
+    <button class="primary" (click)="roll()" [disabled]="rolledList.length<2">开选！</button>
   </section>
 </main>
 <div *ngIf="result" (click)="result=''">

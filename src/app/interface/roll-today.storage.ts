@@ -8,3 +8,10 @@ export interface RollTodayData {
    */
   filters: { [type: string]: boolean };
 }
+
+export interface Pool {
+  value: string;
+  label: string;
+  type: 'artifacts' | 'boss' | 'base' | 'other';
+  target?: string;
+}

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Constants } from 'src/app/constants/cosntants';
 import { DataService } from 'src/app/core/data.service';
-import { RollTodayData } from 'src/app/interface/roll-today.storage';
+import { Pool, RollTodayData } from 'src/app/interface/roll-today.storage';
 
 /**
  * 今天树脂刷什么
@@ -14,15 +14,7 @@ import { RollTodayData } from 'src/app/interface/roll-today.storage';
 export class RandomTodayComponent implements OnInit {
   memoried: string[] = [];
   filters: { [type: string]: boolean } = {};
-
-  get rolledList(): string[] {
-    return this.memoried.filter(
-      (item) =>
-        this.filters[this.pools.find((e) => e.value === item)?.type || '']
-    );
-  }
-
-  pools = [
+  pools: Pool[] = [
     { value: 'anemo', label: '风本/少女', type: 'artifacts' },
     { value: 'cryo', label: '冰本/水本', type: 'artifacts' },
     { value: 'electro', label: '雷本/平雷', type: 'artifacts' },
@@ -54,6 +46,17 @@ export class RandomTodayComponent implements OnInit {
   result = '';
   resultName = '';
 
+  get rolledList(): string[] {
+    return this.memoried.filter(
+      (item) =>
+        this.filters[this.pools.find((e) => e.value === item)?.type || '']
+    );
+  }
+
+  get availableList(): Pool[] {
+    return this.pools.filter((pool) => this.filters[pool.type]);
+  }
+
   constructor(private data: DataService) {}
 
   ngOnInit(): void {
@@ -61,20 +64,63 @@ export class RandomTodayComponent implements OnInit {
 
     this.memoried = session?.memoried || [];
     this.filters = session?.filters || { artifacts: true, base: true };
+
+    // Daily
+    const day = (new Date().getDay() - 1) % 3;
+    const weekend = new Date().getDay() === 7;
+
+    this.pools.push({
+      value: 'mond_talent',
+      label: `蒙德天赋（${weekend ? '全' : ['自由', '抗争', '诗文'][day]}）`,
+      type: 'other',
+      target: 'mond_talent' + day,
+    });
+    this.pools.push({
+      value: 'liyue_talent',
+      label: `璃月天赋（${[weekend ? '全' : '繁荣', '勤劳', '黄金'][day]}）`,
+      type: 'other',
+      target: 'liyue_talent' + day,
+    });
+    this.pools.push({
+      value: 'inazuma_talent',
+      label: `稻妻天赋（${[weekend ? '全' : '浮世', '风雅', '天光'][day]}）`,
+      type: 'other',
+      target: 'inazuma_talent' + day,
+    });
+    this.pools.push({
+      value: 'mond_weapon',
+      label: `蒙德武器（${weekend ? '全' : ['碎片', '牙齿', '锁链'][day]}）`,
+      type: 'other',
+      target: 'mond_weapon' + day,
+    });
+    this.pools.push({
+      value: 'liyue_weapon',
+      label: `璃月武器（${weekend ? '全' : ['柱子', '丹药', '天星'][day]}）`,
+      type: 'other',
+      target: 'liyue_weapon' + day,
+    });
+    this.pools.push({
+      value: 'inazuma_weapon',
+      label: `稻妻武器（${weekend ? '全' : ['珊瑚', '怀玉', '面具'][day]}）`,
+      type: 'other',
+      target: 'inazuma_weapon' + day,
+    });
   }
 
   isCheckedPool(key: string): boolean {
     return this.memoried.includes(key);
   }
 
-  changePool(key: string): void {
+  changePool(key: string, froceStatus: '0' | '1' | null = null): void {
     const hasIndex = this.memoried.indexOf(key);
-    if (hasIndex !== -1) {
+    if ((hasIndex !== -1 || froceStatus === '0') && froceStatus !== '1') {
       this.memoried.splice(hasIndex, 1);
-    } else {
+      console.log('删除', key);
+    } else if (hasIndex === -1) {
       this.memoried.push(key);
-      this.save();
+      console.log('添加', key);
     }
+    this.save();
   }
 
   save(): void {
@@ -85,26 +131,28 @@ export class RandomTodayComponent implements OnInit {
   }
 
   roll(): void {
-    this.result = this.rolledList[Math.floor(Math.random() * this.rolledList.length)];
+    this.result =
+      this.rolledList[Math.floor(Math.random() * this.rolledList.length)];
     this.resultName =
       this.pools.find((e) => e.value === this.result)?.label || '';
   }
 
   isAllSelect(): boolean {
-    return this.pools.every((pool) => this.memoried.includes(pool.value));
+    return this.availableList.every((pool) =>
+      this.memoried.includes(pool.value)
+    );
   }
 
   checkAll(): void {
     if (this.isAllSelect()) {
-      this.memoried = [];
+      this.availableList.map((pool) => this.changePool(pool.value, '0'));
     } else {
-      this.memoried = this.pools.map((pool) => pool.value);
+      this.availableList.map((pool) => this.changePool(pool.value, '1'));
     }
-    this.save();
   }
 
   reverse(): void {
-    this.pools.map((pool) => this.changePool(pool.value));
+    this.availableList.map((pool) => this.changePool(pool.value));
   }
 
   loadProfile(profile: string): void {
