@@ -15,15 +15,15 @@ export class RandomTodayComponent implements OnInit {
   memoried: string[] = [];
   filters: { [type: string]: boolean } = {};
   pools: Pool[] = [
-    { value: 'anemo', label: '风本/少女', type: 'artifacts' },
-    { value: 'cryo', label: '冰本/水本', type: 'artifacts' },
-    { value: 'electro', label: '雷本/平雷', type: 'artifacts' },
-    { value: 'pyro', label: '火本/幡然醒悟', type: 'artifacts' },
+    { value: 'anemo', label: '风套/少女', type: 'artifacts' },
+    { value: 'cryo', label: '冰套/水套', type: 'artifacts' },
+    { value: 'electro', label: '如雷/平雷', type: 'artifacts' },
+    { value: 'pyro', label: '魔女/幡然醒悟', type: 'artifacts' },
     { value: 'burst', label: '宗室/骑士道', type: 'artifacts' },
-    { value: 'geo', label: '岩本/逆飞', type: 'artifacts' },
+    { value: 'geo', label: '岩套/逆飞', type: 'artifacts' },
     { value: 'physical', label: '千岩/苍白', type: 'artifacts' },
     { value: 'electro2', label: '绝缘/追忆', type: 'artifacts' },
-    { value: 'heal', label: '华章/海染', type: 'artifacts' },
+    { value: 'heal', label: '华馆/海染', type: 'artifacts' },
     { value: 'gold', label: '金币地脉花', type: 'base' },
     { value: 'exp', label: '经验地脉花', type: 'base' },
     { value: 'boss_anemo', label: '无相之风', type: 'boss' },
@@ -38,9 +38,9 @@ export class RandomTodayComponent implements OnInit {
     { value: 'boss_electro2', label: '雷音权现', type: 'boss' },
     { value: 'boss_geo2', label: '古岩龙蜥', type: 'boss' },
     { value: 'boss_cryo3', label: '魔偶剑鬼', type: 'boss' },
-    { value: 'boss_physical', label: '恒常机关', type: 'boss' },
-    { value: 'boss_wolf', label: '黄金王狼', type: 'boss' },
-    { value: 'boss_coral', label: '双子龙蜥', type: 'boss' },
+    { value: 'boss_physical', label: '恒常机关阵列', type: 'boss' },
+    { value: 'boss_wolf', label: '黄金王兽', type: 'boss' },
+    { value: 'boss_coral', label: '深海龙蜥之群', type: 'boss' },
   ];
 
   result = '';
