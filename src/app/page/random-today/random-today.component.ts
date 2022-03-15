@@ -77,13 +77,13 @@ export class RandomTodayComponent implements OnInit {
     });
     this.pools.push({
       value: 'liyue_talent',
-      label: `璃月天赋（${[weekend ? '全' : '繁荣', '勤劳', '黄金'][day]}）`,
+      label: `璃月天赋（${weekend ? '全' : ['繁荣', '勤劳', '黄金'][day]}）`,
       type: 'other',
       target: 'liyue_talent' + day,
     });
     this.pools.push({
       value: 'inazuma_talent',
-      label: `稻妻天赋（${[weekend ? '全' : '浮世', '风雅', '天光'][day]}）`,
+      label: `稻妻天赋（${weekend ? '全' : ['浮世', '风雅', '天光'][day]}）`,
       type: 'other',
       target: 'inazuma_talent' + day,
     });
