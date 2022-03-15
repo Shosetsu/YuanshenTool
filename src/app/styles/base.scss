@@ -33,6 +33,11 @@ section {
 h1 {
   font-size: 3rem;
   margin: 2rem;
+
+  @include sm {
+    font-size: 2rem;
+    margin: 1.5rem;
+  }
 }
 
 p {
@@ -86,7 +91,7 @@ button {
       content: "";
       height: 1.2rem;
       width: 1.2rem;
-      background: url(assets/back.svg) no-repeat center;
+      background: url(^/assets/back.svg) no-repeat center;
       background-size: cover;
       margin-right: 2rem;
     }
