@@ -115,10 +115,8 @@ export class RandomTodayComponent implements OnInit {
     const hasIndex = this.memoried.indexOf(key);
     if ((hasIndex !== -1 || froceStatus === '0') && froceStatus !== '1') {
       this.memoried.splice(hasIndex, 1);
-      console.log('删除', key);
     } else if (hasIndex === -1) {
       this.memoried.push(key);
-      console.log('添加', key);
     }
     this.save();
   }
