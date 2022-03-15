@@ -66,8 +66,9 @@ export class RandomTodayComponent implements OnInit {
     this.filters = session?.filters || { artifacts: true, base: true };
 
     // Daily
-    const day = (new Date().getDay() - 1) % 3;
-    const weekend = new Date().getDay() === 7;
+    const today = new Date(new Date().getTime() - 4 * 3_600_000);
+    const weekend = today.getDay() === 0;
+    const day = weekend ? 0 : (today.getDay() - 1) % 3;
 
     this.pools.push({
       value: 'mond_talent',
