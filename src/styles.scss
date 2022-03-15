@@ -48,11 +48,13 @@ button {
   color: #333;
   background-color: #fff;
 
+  box-shadow: 0px 2px 5px rgb(30 30 30 / 30%);
+
   &:not([disabled]):hover {
     opacity: 0.8;
   }
 
-  &[disabled]{
+  &[disabled] {
     cursor: initial;
     background-color: #eee7;
   }
