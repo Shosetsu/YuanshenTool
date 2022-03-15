@@ -43,7 +43,7 @@ export class RandomTodayComponent implements OnInit {
     { value: 'boss_coral', label: '深海龙蜥之群', type: 'boss' },
   ];
 
-  result = '';
+  result?: Pool = undefined;
   resultName = '';
 
   get rolledList(): string[] {
@@ -129,10 +129,10 @@ export class RandomTodayComponent implements OnInit {
   }
 
   roll(): void {
-    this.result =
+    const rolled =
       this.rolledList[Math.floor(Math.random() * this.rolledList.length)];
-    this.resultName =
-      this.pools.find((e) => e.value === this.result)?.label || '';
+    this.result = this.pools.find((e) => e.value === rolled);
+    console.log(this.result?.label);
   }
 
   isAllSelect(): boolean {

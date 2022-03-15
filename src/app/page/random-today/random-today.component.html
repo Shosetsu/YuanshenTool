@@ -35,11 +35,11 @@
     <button class="primary" (click)="roll()" [disabled]="rolledList.length<2">开选！</button>
   </section>
 </main>
-<div *ngIf="result" (click)="result=''">
-  <div class=" warpper"></div>
+<div *ngIf="result" (click)="result=undefined">
+  <div class="warpper"></div>
   <div class="body">
     <div class="text">今天刷<div class="pool-block checked"
-        [style.background-image]="'url(\'assets/rt/'+result+'.webp\')'">
-        <span>{{resultName}}</span></div>吧！</div>
+        [style.background-image]="'url(\'assets/rt/'+(result.target||result.value)+'.webp\')'">
+        <span>{{result.label}}</span></div>吧！</div>
   </div>
 </div>
