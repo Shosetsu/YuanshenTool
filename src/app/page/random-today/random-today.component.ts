@@ -124,7 +124,7 @@ export class RandomTodayComponent implements OnInit {
 
   changePool(key: string, froceStatus: '0' | '1' | null = null): void {
     const hasIndex = this.memoried.indexOf(key);
-    if ((hasIndex !== -1 || froceStatus === '0') && froceStatus !== '1') {
+    if (hasIndex !== -1 && froceStatus !== '1') {
       this.memoried.splice(hasIndex, 1);
     } else if (hasIndex === -1) {
       this.memoried.push(key);
@@ -144,7 +144,6 @@ export class RandomTodayComponent implements OnInit {
     const rolled =
       this.rolledList[Math.floor(Math.random() * this.rolledList.length)];
     this.result = this.availableList.find((e) => e.value === rolled);
-    console.log(this.result?.label);
   }
 
   isAllSelect(): boolean {
