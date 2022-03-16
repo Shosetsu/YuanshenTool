@@ -63,7 +63,10 @@
       <br>
       <p>名字：<input #newPool type="text" placeholder="征讨领域"></p>
       <br>
-      <button class="primary" (click)="createPoolSetting(newPool.value)">确定</button>
+      <section class="row">
+        <button class="back" (click)="cusPoolModalFlag=false">取消</button>
+        <button class="primary" (click)="createPoolSetting(newPool.value)">确定</button>
+      </section>
     </div>
   </div>
 </div>
