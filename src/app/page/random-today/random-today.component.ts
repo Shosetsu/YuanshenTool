@@ -14,6 +14,7 @@ import { Pool, RollTodayData } from 'src/app/interface/roll-today.storage';
 export class RandomTodayComponent implements OnInit {
   memoried: string[] = [];
   filters: { [type: string]: boolean } = {};
+
   pools: Pool[] = [
     { value: 'anemo', label: '风套/少女', type: 'artifacts' },
     { value: 'cryo', label: '冰套/水套', type: 'artifacts' },
@@ -42,6 +43,9 @@ export class RandomTodayComponent implements OnInit {
     { value: 'boss_wolf', label: '黄金王兽', type: 'boss' },
     { value: 'boss_coral', label: '深海龙蜥之群', type: 'boss' },
   ];
+  customPools: Pool[] = [];
+
+  cusPoolModalFlag = false;
 
   result?: Pool = undefined;
   resultName = '';
@@ -49,12 +53,15 @@ export class RandomTodayComponent implements OnInit {
   get rolledList(): string[] {
     return this.memoried.filter(
       (item) =>
-        this.filters[this.pools.find((e) => e.value === item)?.type || '']
+        this.filters[this.pools.find((e) => e.value === item)?.type || ''] ||
+        this.customPools.find((e) => e.value === item)
     );
   }
 
   get availableList(): Pool[] {
-    return this.pools.filter((pool) => this.filters[pool.type]);
+    return [...this.pools, ...this.customPools].filter(
+      (pool) => !pool.type || this.filters[pool.type]
+    );
   }
 
   constructor(private data: DataService) {}
@@ -64,6 +71,9 @@ export class RandomTodayComponent implements OnInit {
 
     this.memoried = session?.memoried || [];
     this.filters = session?.filters || { artifacts: true, base: true };
+    this.customPools = session?.customPools || [
+      { label: '征讨领域', value: 'cus1', target: 'resin' },
+    ];
 
     // Daily
     const today = new Date(new Date().getTime() - 4 * 3_600_000);
@@ -126,13 +136,14 @@ export class RandomTodayComponent implements OnInit {
     this.data.saveValue(Constants.ROLL_TODAY_KEY, {
       memoried: this.memoried,
       filters: this.filters,
+      customPools: this.customPools,
     } as RollTodayData);
   }
 
   roll(): void {
     const rolled =
       this.rolledList[Math.floor(Math.random() * this.rolledList.length)];
-    this.result = this.pools.find((e) => e.value === rolled);
+    this.result = this.availableList.find((e) => e.value === rolled);
     console.log(this.result?.label);
   }
 
@@ -171,5 +182,22 @@ export class RandomTodayComponent implements OnInit {
 
   outputProfile(): string {
     return btoa(JSON.stringify(this.memoried));
+  }
+
+  createPoolSetting(label: string): void {
+    this.customPools.push({
+      label,
+      value: 'cus' + new Date().getTime(),
+      target: 'resin',
+    });
+    this.save();
+    this.cusPoolModalFlag = false;
+  }
+
+  removePool(pool: Pool): void {
+    const hasIndex = this.customPools.indexOf(pool);
+    this.customPools.splice(hasIndex, 1);
+    this.changePool(pool.value, '0');
+    this.save();
   }
 }

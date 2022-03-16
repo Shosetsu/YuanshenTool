@@ -46,18 +46,22 @@
 }
 
 .pool-block {
-  width: 7.6rem;
-  height: 8.6rem;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+
+  width: 7.4rem;
+  height: 8.7rem;
 
   border: gray 4px solid;
   border-radius: 1rem;
 
   margin: 0.3rem 0.1rem;
-  padding: 0.35rem 0.7rem;
+  padding: 0.15rem 0.7rem;
 
   background: whitesmoke;
   background-size: contain;
-  background-position: 0 1.5rem;
+  background-position: 0 0.7rem;
   background-repeat: no-repeat;
 
   cursor: pointer;
@@ -73,7 +77,7 @@
     border-color: #e60000;
   }
 
-  &:not(.checked)::after {
+  &:not(.checked, .custom)::after {
     content: '';
     top: 0;
     left: 0;
@@ -87,6 +91,27 @@
   p {
     font-size: 1.1rem;
   }
+
+  &[hidden] {
+    display: none;
+  }
+
+  &.custom {
+    background-position: center;
+    background-size: 50%;
+  }
+}
+
+.remove-tag {
+  height: 2rem;
+  width: 2rem;
+  display: block;
+  position: absolute;
+  right: 0;
+  background: url(^assets/remove.svg) no-repeat center;
+  background-size: contain;
+  bottom: 0;
+  border-radius: 0.5rem;
 }
 
 .title {
@@ -130,11 +155,14 @@
     background: -webkit-linear-gradient(to top, #ffdde1, #ee9ca7);
     background: linear-gradient(to top, #ffdde1, #ee9ca7);
 
-
     padding: 2rem;
     border-radius: 1rem;
 
     @include resize(80%);
+
+    &.col {
+      flex-direction: column;
+    }
 
     .pool-block {
       font-size: 1rem;

@@ -32,14 +32,14 @@ export class DataService {
   getValue<T>(key: string): T {
     let value;
     try {
-      value = JSON.parse(atob(this.data[key]));
+      value = JSON.parse(decodeURIComponent(atob(this.data[key])));
     } catch {}
 
     return value;
   }
 
   saveValue(key: string, value: any): void {
-    this.data[key] = btoa(JSON.stringify(value));
+    this.data[key] = btoa(encodeURIComponent(JSON.stringify(value)));
     this.saveStorage();
   }
 }
