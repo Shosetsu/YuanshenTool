@@ -25,6 +25,7 @@ export class RandomTodayComponent implements OnInit {
     { value: 'physical', label: '千岩/苍白', type: 'artifacts' },
     { value: 'electro2', label: '绝缘/追忆', type: 'artifacts' },
     { value: 'heal', label: '华馆/海染', type: 'artifacts' },
+    { value: '2atk', label: '辰砂/余响', type: 'artifacts' },
     { value: 'gold', label: '金币地脉花', type: 'base' },
     { value: 'exp', label: '经验地脉花', type: 'base' },
     { value: 'boss_anemo', label: '无相之风', type: 'boss' },
