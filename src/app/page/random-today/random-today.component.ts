@@ -4,7 +4,7 @@ import { DataService } from 'src/app/core/data.service';
 import { Pool, RollTodayData } from 'src/app/interface/roll-today.storage';
 
 /**
- * 今天树脂刷什么
+ * 今天树脂刷什么 页面模块
  */
 @Component({
   selector: 'app-random-today',
@@ -12,9 +12,13 @@ import { Pool, RollTodayData } from 'src/app/interface/roll-today.storage';
   styleUrls: ['./random-today.component.scss'],
 })
 export class RandomTodayComponent implements OnInit {
-  memoried: string[] = [];
+  /** 用户选择的池子一览（仅储存用） */
+  private memoried: string[] = [];
+
+  /** 用户使用的筛选状态 */
   filters: { [type: string]: boolean } = {};
 
+  /** 选择池子一览 */
   pools: Pool[] = [
     { value: 'anemo', label: '风套/少女', type: 'artifacts' },
     { value: 'cryo', label: '冰套/水套', type: 'artifacts' },
@@ -44,13 +48,17 @@ export class RandomTodayComponent implements OnInit {
     { value: 'boss_wolf', label: '黄金王兽', type: 'boss' },
     { value: 'boss_coral', label: '深海龙蜥之群', type: 'boss' },
   ];
+
+  /** 用户自定义池子一览 */
   customPools: Pool[] = [];
 
+  /** 自定义池子弹窗状态 */
   cusPoolModalFlag = false;
 
+  /** 本次随机结果 */
   result?: Pool = undefined;
-  resultName = '';
 
+  /** 有效随机范围（用户在当前筛选条件下选中的一览） */
   get rolledList(): string[] {
     return this.memoried.filter(
       (item) =>
@@ -59,24 +67,34 @@ export class RandomTodayComponent implements OnInit {
     );
   }
 
+  /** 所有可用的池子（在当前筛选条件下的一览） */
   get availableList(): Pool[] {
     return [...this.pools, ...this.customPools].filter(
       (pool) => !pool.type || this.filters[pool.type]
     );
   }
 
+  /**
+   * 构造器
+   *
+   * @param data 数据管理服务
+   */
   constructor(private data: DataService) {}
 
+  /**
+   * 画面初始处理
+   */
   ngOnInit(): void {
+    // 读取本地储存数据
     const session = this.data.getValue<RollTodayData>(Constants.ROLL_TODAY_KEY);
-
+    // 并处理（不存在时赋予默认值）
     this.memoried = session?.memoried || [];
     this.filters = session?.filters || { artifacts: true, base: true };
     this.customPools = session?.customPools || [
       { label: '征讨领域', value: 'cus1', target: 'resin' },
     ];
 
-    // Daily
+    // 存在每日切换的特殊固定池子的生成处理
     const today = new Date(new Date().getTime() - 4 * 3_600_000);
     const weekend = today.getDay() === 0;
     const day = weekend ? 0 : (today.getDay() - 1) % 3;
@@ -119,10 +137,22 @@ export class RandomTodayComponent implements OnInit {
     });
   }
 
+  /**
+   * 是否为选中的池子
+   *
+   * @param key 池子的键
+   * @returns 是or否
+   */
   isCheckedPool(key: string): boolean {
     return this.memoried.includes(key);
   }
 
+  /**
+   * 切换池子的选择状态
+   *
+   * @param key 池子的键
+   * @param froceStatus （可选）无论如何一定要把它设置成的状态
+   */
   changePool(key: string, froceStatus: '0' | '1' | null = null): void {
     const hasIndex = this.memoried.indexOf(key);
     if (hasIndex !== -1 && froceStatus !== '1') {
@@ -133,26 +163,20 @@ export class RandomTodayComponent implements OnInit {
     this.save();
   }
 
-  save(): void {
-    this.data.saveValue(Constants.ROLL_TODAY_KEY, {
-      memoried: this.memoried,
-      filters: this.filters,
-      customPools: this.customPools,
-    } as RollTodayData);
-  }
-
-  roll(): void {
-    const rolled =
-      this.rolledList[Math.floor(Math.random() * this.rolledList.length)];
-    this.result = this.availableList.find((e) => e.value === rolled);
-  }
-
+  /**
+   * 检查是否全选（在当前的筛选状态下）
+   *
+   * @returns 是or否
+   */
   isAllSelect(): boolean {
     return this.availableList.every((pool) =>
       this.memoried.includes(pool.value)
     );
   }
 
+  /**
+   * 将其全选or全不选（在当前的筛选状态下）
+   */
   checkAll(): void {
     if (this.isAllSelect()) {
       this.availableList.map((pool) => this.changePool(pool.value, '0'));
@@ -161,10 +185,18 @@ export class RandomTodayComponent implements OnInit {
     }
   }
 
+  /**
+   * 反选
+   */
   reverse(): void {
     this.availableList.map((pool) => this.changePool(pool.value));
   }
 
+  /**
+   * 读取外部配置信息
+   *
+   * @param profile 配置信息（编码后）
+   */
   loadProfile(profile: string): void {
     try {
       const input: string[] = JSON.parse(atob(profile));
@@ -180,10 +212,20 @@ export class RandomTodayComponent implements OnInit {
     }
   }
 
+  /**
+   * 提供外部配置信息
+   *
+   * @returns 配置信息（编码后）
+   */
   outputProfile(): string {
     return btoa(JSON.stringify(this.memoried));
   }
 
+  /**
+   * 创建自定义池子
+   *
+   * @param label 池子名字
+   */
   createPoolSetting(label: string): void {
     this.customPools.push({
       label,
@@ -194,10 +236,35 @@ export class RandomTodayComponent implements OnInit {
     this.cusPoolModalFlag = false;
   }
 
+  /**
+   * 删除自定义池子
+   *
+   * @param label 池子名字
+   */
   removePool(pool: Pool): void {
     const hasIndex = this.customPools.indexOf(pool);
     this.customPools.splice(hasIndex, 1);
     this.changePool(pool.value, '0');
     this.save();
+  }
+
+  /**
+   * 开选
+   */
+  roll(): void {
+    const rolled =
+      this.rolledList[Math.floor(Math.random() * this.rolledList.length)];
+    this.result = this.availableList.find((e) => e.value === rolled);
+  }
+
+  /**
+   * 保存所有数据到本地
+   */
+  save(): void {
+    this.data.saveValue(Constants.ROLL_TODAY_KEY, {
+      memoried: this.memoried,
+      filters: this.filters,
+      customPools: this.customPools,
+    } as RollTodayData);
   }
 }

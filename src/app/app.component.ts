@@ -11,15 +11,27 @@ import { DataService } from './core/data.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+  /**
+   * 构造器
+   *
+   * @param data 数据管理服务
+   * @param router 路由管理服务
+   */
   constructor(private data: DataService, private router: Router) {}
 
+  /**
+   * 程序初始处理
+   */
   ngOnInit(): void {
+    // 加载本地储存数据
     this.data.loadStorage();
 
+    // 检查储存数据版本是否一致
     if (
       this.data.getValue(Constants.STORAGE_VERSION_KEY) !==
       environment.storageVerison
     ) {
+      // 初始化储存数据
       this.data.clearStorage();
       this.data.saveValue(
         Constants.STORAGE_VERSION_KEY,
@@ -28,6 +40,7 @@ export class AppComponent implements OnInit {
       this.data.saveStorage();
     }
 
+    // 当路由完成时读取路由数据并更新标题
     this.router.events
       .pipe(
         filter(

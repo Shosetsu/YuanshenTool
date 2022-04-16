@@ -1,3 +1,6 @@
+/**
+ * 今天刷什么 储存数据定义
+ */
 export interface RollTodayData {
   /**
    * 用户选中的项目
@@ -13,6 +16,9 @@ export interface RollTodayData {
   customPools: Pool[];
 }
 
+/**
+ * 池子定义
+ */
 export interface Pool {
   value: string;
   label: string;
