@@ -47,6 +47,7 @@ export class RandomTodayComponent implements OnInit {
     { value: 'boss_physical', label: '恒常机关阵列', type: 'boss' },
     { value: 'boss_wolf', label: '黄金王兽', type: 'boss' },
     { value: 'boss_coral', label: '深海龙蜥之群', type: 'boss' },
+    { value: 'boss_ruin', label: '遗迹巨蛇', type: 'boss' },
   ];
 
   /** 用户自定义池子一览 */

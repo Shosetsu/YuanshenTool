@@ -1,3 +1,3 @@
-# YuanshenTools
+# 原神小工具集
 
 (*´σｰ｀)
