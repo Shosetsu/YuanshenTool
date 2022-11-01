@@ -124,7 +124,7 @@ export class RandomTodayComponent implements OnInit {
       target: 'inazuma_talent' + day,
     });
     this.pools.push({
-      value: 'inazuma_talent',
+      value: 'sumeru_talent',
       label: `须弥天赋（${weekend ? '全' : ['诤言', '巧思', '笃行'][day]}）`,
       type: 'other',
       target: 'sumeru_talent' + day,
