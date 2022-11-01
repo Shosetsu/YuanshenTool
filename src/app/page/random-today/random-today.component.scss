@@ -61,7 +61,7 @@
 
   background: whitesmoke;
   background-size: contain;
-  background-position: 0 0.7rem;
+  background-position: 0 100%;
   background-repeat: no-repeat;
 
   cursor: pointer;
@@ -90,6 +90,7 @@
 
   p {
     font-size: 1.1rem;
+    text-shadow: 0.1rem 0.1rem 5px rgb(200 200 200);
   }
 
   &[hidden] {
