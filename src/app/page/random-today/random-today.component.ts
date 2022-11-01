@@ -30,6 +30,7 @@ export class RandomTodayComponent implements OnInit {
     { value: 'electro2', label: '绝缘/追忆', type: 'artifacts' },
     { value: 'heal', label: '华馆/海染', type: 'artifacts' },
     { value: '2atk', label: '辰砂/余响', type: 'artifacts' },
+    { value: 'dendro', label: '深林/饰金', type: 'artifacts' },
     { value: 'gold', label: '金币地脉花', type: 'base' },
     { value: 'exp', label: '经验地脉花', type: 'base' },
     { value: 'boss_anemo', label: '无相之风', type: 'boss' },
@@ -48,6 +49,10 @@ export class RandomTodayComponent implements OnInit {
     { value: 'boss_wolf', label: '黄金王兽', type: 'boss' },
     { value: 'boss_coral', label: '深海龙蜥之群', type: 'boss' },
     { value: 'boss_ruin', label: '遗迹巨蛇', type: 'boss' },
+    { value: 'boss_dendro', label: '翠翎恐蕈', type: 'boss' },
+    { value: 'boss_electro3', label: '掣电树', type: 'boss' },
+    { value: 'boss_physical2', label: '兆载永劫龙兽', type: 'boss' },
+    { value: 'boss_physical3', label: '半永恒统辖矩阵', type: 'boss' },
   ];
 
   /** 用户自定义池子一览 */
