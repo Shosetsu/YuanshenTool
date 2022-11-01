@@ -124,6 +124,12 @@ export class RandomTodayComponent implements OnInit {
       target: 'inazuma_talent' + day,
     });
     this.pools.push({
+      value: 'inazuma_talent',
+      label: `须弥天赋（${weekend ? '全' : ['诤言', '巧思', '笃行'][day]}）`,
+      type: 'other',
+      target: 'sumeru_talent' + day,
+    });
+    this.pools.push({
       value: 'mond_weapon',
       label: `蒙德武器（${weekend ? '全' : ['碎片', '牙齿', '锁链'][day]}）`,
       type: 'other',
@@ -140,6 +146,12 @@ export class RandomTodayComponent implements OnInit {
       label: `稻妻武器（${weekend ? '全' : ['珊瑚', '怀玉', '面具'][day]}）`,
       type: 'other',
       target: 'inazuma_weapon' + day,
+    });
+    this.pools.push({
+      value: 'sumeru_weapon',
+      label: `须弥武器（${weekend ? '全' : ['金符', '盘子', '徽章'][day]}）`,
+      type: 'other',
+      target: 'sumeru_weapon' + day,
     });
   }
 
