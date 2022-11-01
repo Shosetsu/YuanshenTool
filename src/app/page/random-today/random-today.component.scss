@@ -38,19 +38,18 @@
   }
 
   div {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
     margin: 0.7rem 0 1rem;
+    display: grid;
+    justify-content: space-between;
+    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fill, 9rem);
   }
 }
 
 .pool-block {
   display: flex;
-  align-items: stretch;
   justify-content: center;
 
-  width: 7.4rem;
   height: 8.7rem;
 
   border: gray 4px solid;

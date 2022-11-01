@@ -27,12 +27,12 @@
       </div>
       <hr>
       <div>
-        <div *ngFor="let item of customPools" class="pool-block" [class.checked]="isCheckedPool(item.value)"
+        <label *ngFor="let item of customPools" class="pool-block" [class.checked]="isCheckedPool(item.value)"
           [style.background-image]="'url(\'assets/rt/'+(item.target||item.value)+'.webp\')'"
           (click)="changePool(item.value)">
           <p>{{item.label}}</p>
           <a class="remove-tag" (click)="removePool(item)"></a>
-        </div>
+        </label>
         <label class="pool-block custom" (click)="cusPoolModalFlag=true"
           [style.background-image]="'url(\'assets/plus1.svg\')'"></label>
       </div>
