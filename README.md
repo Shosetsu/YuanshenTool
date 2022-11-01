@@ -1,10 +1,10 @@
-# 原神小工具集
+# 原神小工具集（Genshin Impact Tools）
 
->src\
+`src\`
 这里是源代码。
 There are source codes.
 
->docs\
+`docs\`
 这里是用来给gh-pages部署的编译后文件。 
 There are deploy files for gh-pages.
 
