@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Constants } from 'src/app/constants/cosntants';
 import { DataService } from 'src/app/core/data.service';
 import { Pool, RollTodayData } from 'src/app/interface/roll-today.storage';
+import { groupBy } from 'src/app/util/util';
 
 /**
  * 今天树脂刷什么 页面模块
@@ -16,10 +17,10 @@ export class RandomTodayComponent implements OnInit {
   private memoried: string[] = [];
 
   /** 用户使用的筛选状态 */
-  filters: { [type: string]: boolean } = {};
+  filters: Record<string, boolean> = {};
 
   /** 选择池子一览 */
-  pools: Pool[] = [
+  private pools: Pool[] = [
     { value: 'anemo', label: '风套/少女', type: 'artifacts' },
     { value: 'cryo', label: '冰套/水套', type: 'artifacts' },
     { value: 'electro', label: '如雷/平雷', type: 'artifacts' },
@@ -53,7 +54,14 @@ export class RandomTodayComponent implements OnInit {
     { value: 'boss_electro3', label: '掣电树', type: 'boss' },
     { value: 'boss_physical2', label: '兆载永劫龙兽', type: 'boss' },
     { value: 'boss_physical3', label: '半永恒统辖矩阵', type: 'boss' },
+    { value: 'boss_dendro2', label: '无相之草', type: 'boss' },
   ];
+
+  /** 分类后标准池子一览 */
+  processedPools: Record<string, Pool[]> = {};
+
+  /** 无能的ObjectKeys */
+  keys = Object.keys;
 
   /** 用户自定义池子一览 */
   customPools: Pool[] = [];
@@ -153,6 +161,12 @@ export class RandomTodayComponent implements OnInit {
       type: 'other',
       target: 'sumeru_weapon' + day,
     });
+
+    this.processedPools = groupBy(
+      this.pools,
+      (o) => o.type || '',
+      (o) => o
+    );
   }
 
   /**

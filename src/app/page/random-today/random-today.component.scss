@@ -171,6 +171,10 @@
     .pool-block {
       font-size: 1rem;
       width: 7.4rem;
+
+      &:hover{
+        opacity: 1;
+      }
     }
   }
 }

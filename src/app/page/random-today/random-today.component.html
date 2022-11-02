@@ -17,15 +17,17 @@
         <label><input type="checkbox" [(ngModel)]="filters['boss']" (change)="save()">角色突破素材</label>
         <label><input type="checkbox" [(ngModel)]="filters['other']" (change)="save()">天赋/武器素材</label>
       </p>
-      <div>
-        <label *ngFor="let item of pools" [hidden]="item.type&&!filters[item.type]" class="pool-block"
-          [class.checked]="isCheckedPool(item.value)"
-          [style.background-image]="'url(\'assets/rt/'+(item.target||item.value)+'.webp\')'">
-          <input type="checkbox" [value]="item.label" (change)="changePool(item.value)" hidden>
-          <p>{{item.label}}</p>
-        </label>
-      </div>
-      <hr>
+      <ng-template *ngFor="let type of keys(processedPools)" [ngIf]="!type||filters[type]">
+        <div>
+          <label class="pool-block" *ngFor="let item of processedPools[type]"
+            [class.checked]="isCheckedPool(item.value)"
+            [style.background-image]="'url(\'assets/rt/'+(item.target||item.value)+'.webp\')'">
+            <input type="checkbox" [value]="item.label" (change)="changePool(item.value)" hidden>
+            <p>{{item.label}}</p>
+          </label>
+        </div>
+        <hr>
+      </ng-template>
       <div>
         <label *ngFor="let item of customPools" class="pool-block" [class.checked]="isCheckedPool(item.value)"
           [style.background-image]="'url(\'assets/rt/'+(item.target||item.value)+'.webp\')'"
