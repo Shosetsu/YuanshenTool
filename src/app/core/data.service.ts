@@ -62,7 +62,7 @@ export class DataService {
    * @param key 数据键名
    * @param value 数据
    */
-  saveValue(key: string, value: any): void {
+  saveValue<T>(key: string, value: T): void {
     this.data[key] = btoa(encodeURIComponent(JSON.stringify(value)));
     this.saveStorage();
   }

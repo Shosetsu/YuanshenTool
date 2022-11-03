@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Constants } from 'src/app/constants/cosntants';
 import { DataService } from 'src/app/core/data.service';
 import { Pool, RollTodayData } from 'src/app/interface/roll-today.storage';
-import { groupBy } from 'src/app/util/util';
+import { Util } from 'src/app/util/util';
 
 /**
  * 今天树脂刷什么 页面模块
@@ -57,7 +57,7 @@ export class RandomTodayComponent implements OnInit {
     { value: 'boss_dendro2', label: '无相之草', type: 'boss' },
   ];
 
-  /** 分类后标准池子一览 */
+  /** 分组后标准池子一览 */
   processedPools: Record<string, Pool[]> = {};
 
   /** 无能的ObjectKeys */
@@ -162,7 +162,8 @@ export class RandomTodayComponent implements OnInit {
       target: 'sumeru_weapon' + day,
     });
 
-    this.processedPools = groupBy(
+    // 分组
+    this.processedPools = Util.groupBy(
       this.pools,
       (o) => o.type || '',
       (o) => o
@@ -271,7 +272,7 @@ export class RandomTodayComponent implements OnInit {
   /**
    * 删除自定义池子
    *
-   * @param label 池子名字
+   * @param pool 池子名字
    */
   removePool(pool: Pool): void {
     const hasIndex = this.customPools.indexOf(pool);
@@ -293,10 +294,10 @@ export class RandomTodayComponent implements OnInit {
    * 保存所有数据到本地
    */
   save(): void {
-    this.data.saveValue(Constants.ROLL_TODAY_KEY, {
+    this.data.saveValue<RollTodayData>(Constants.ROLL_TODAY_KEY, {
       memoried: this.memoried,
       filters: this.filters,
       customPools: this.customPools,
-    } as RollTodayData);
+    });
   }
 }
