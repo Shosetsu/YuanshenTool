@@ -20,8 +20,8 @@ export class MenuComponent {
    * 链接一览
    */
   links = [
-    { route: 'today', text: '工具1：今天树脂刷什么' },
-    { route: 'test', text: '工具2：咕咕咕，待定…' },
+    { route: 'today', text: 'MENU.link_00' },
+    { route: 'test', text: 'MENU.link_01' },
   ];
 
   /**

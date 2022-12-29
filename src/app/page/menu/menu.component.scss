@@ -15,4 +15,8 @@ a {
   &:hover {
     background: #ee9ca7;
   }
+
+  &.last::after {
+    content: '★';
+  }
 }
