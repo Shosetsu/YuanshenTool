@@ -9,7 +9,7 @@
 
     >button {
       height: 1.8em;
-      width: 4.8rem;
+      min-width: 4.8rem;
       border-radius: 5%;
 
       &:not(:last-child) {
