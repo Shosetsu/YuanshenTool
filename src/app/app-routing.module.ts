@@ -1,17 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoadInitial } from './core/load.initial';
 import { MenuComponent } from './page/menu/menu.component';
 import { RandomTodayComponent } from './page/random-today/random-today.component';
+import { RandomTodayPreloader } from './page/random-today/random-today.preloader';
 
 const routes: Routes = [
   {
     path: 'today',
+    resolve: { data: RandomTodayPreloader },
+    canActivate: [LoadInitial],
     component: RandomTodayComponent,
-    data: { title: '今天刷什么' },
+    data: { title: 'REOLL_TODAY_TITLE' },
   },
   {
     path: '',
-    // resolve: { data: LoadResolver },
+    canActivate: [LoadInitial],
     component: MenuComponent,
   },
   { path: '**', pathMatch: 'full', redirectTo: '' },

@@ -1,37 +1,37 @@
 <main>
-  <h1>今天树脂刷什么呢？</h1>
+  <h1 textId="REOLL_TODAY_TITLE"></h1>
   <section>
     <div class="pool">
-      <p class="title">随机池</p>
-      <p>从下面的列表中勾选中所有你想要随机的树脂消耗目标。</p>
+      <p class="title" textId="RT.sub_title_0"></p>
+      <p textId="RT.info_0"></p>
       <p class="buttons">
-        <button class="normal" (click)="checkAll()">{{isAllSelect()?'全部取消':'全部选中'}}</button>
-        <button class="normal" (click)="reverse()">全部反选</button>
-        <button class="normal" (click)="loadProfile(profile.value)">导入</button>
-        <button class="normal" (click)="profile.value=outputProfile();profile.select()">导出</button>
-        <input placeholder="复选配置导入/导出用…" #profile>
+        <button class="normal" (click)="checkAll()" [textId]="isAllSelect()?'RT.command_000':'RT.command_001'"></button>
+        <button class="normal" (click)="reverse()" textId="RT.command_002"></button>
+        <button class="normal" (click)="loadProfile(profile.value)" textId="RT.command_003"></button>
+        <button class="normal" (click)="profile.value=outputProfile();profile.select()"
+          textId="RT.command_004"></button>
+        <input [placeholder]="text['RT.info_1']" #profile>
       </p>
       <p class="filter">
-        <label><input type="checkbox" [(ngModel)]="filters['artifacts']" (change)="save()">圣遗物</label>
-        <label><input type="checkbox" [(ngModel)]="filters['base']" (change)="save()">地脉花</label>
-        <label><input type="checkbox" [(ngModel)]="filters['boss']" (change)="save()">角色突破素材</label>
-        <label><input type="checkbox" [(ngModel)]="filters['other']" (change)="save()">天赋/武器素材</label>
+        <label><input type="checkbox" [(ngModel)]="filters['artifacts']"
+            (change)="save()">{{text['RT.filter_00']}}</label>
+        <label><input type="checkbox" [(ngModel)]="filters['base']" (change)="save()">{{text['RT.filter_01']}}</label>
+        <label><input type="checkbox" [(ngModel)]="filters['boss']" (change)="save()">{{text['RT.filter_02']}}</label>
+        <label><input type="checkbox" [(ngModel)]="filters['other']" (change)="save()">{{text['RT.filter_03']}}</label>
       </p>
       <ng-template *ngFor="let type of keys(processedPools)" [ngIf]="!type||filters[type]">
         <div>
-          <label class="pool-block" *ngFor="let item of processedPools[type]"
-            [class.checked]="isCheckedPool(item.value)"
+          <label class="pool-block" *ngFor="let item of processedPools[type]" [class.checked]="item.isSelect"
             [style.background-image]="'url(\'assets/rt/'+(item.target||item.value)+'.webp\')'">
-            <input type="checkbox" [value]="item.label" (change)="changePool(item.value)" hidden>
+            <input type="checkbox" [value]="item.label" (change)="changePool(item)" hidden>
             <p>{{item.label}}</p>
           </label>
         </div>
         <hr>
       </ng-template>
       <div>
-        <label *ngFor="let item of customPools" class="pool-block" [class.checked]="isCheckedPool(item.value)"
-          [style.background-image]="'url(\'assets/rt/'+(item.target||item.value)+'.webp\')'"
-          (click)="changePool(item.value)">
+        <label *ngFor="let item of customPools" class="pool-block" [class.checked]="item.isSelect"
+          [style.background-image]="'url(\'assets/rt/'+(item.target||item.value)+'.webp\')'" (click)="changePool(item)">
           <p>{{item.label}}</p>
           <a class="remove-tag" (click)="removePool(item)"></a>
         </label>
@@ -40,34 +40,31 @@
       </div>
       <hr>
     </div>
-    <!-- <div class="pool-control">
-      <label><input type="checkbox" [(ngModel)]="session.mutil" (change)="save()">是否每次独立随机？</label>
-    </div> -->
   </section>
   <section class="mb5 row">
-    <button class="back" routerLink="/">返回</button>
-    <button class="primary" (click)="roll()" [disabled]="rolledList.length<2">开选！</button>
+    <button class="back" routerLink="/" textId="RT.btn_00"></button>
+    <button class="primary" (click)="roll()" [disabled]="rolledList.length<2" textId="RT.btn_01"></button>
   </section>
 </main>
 <div *ngIf="result" (click)="result=undefined">
   <div class="warpper"></div>
   <div class="body">
-    <div class="text">今天刷<div class="pool-block checked"
+    <div class="text">{{text['RT.info_2a']}}<div class="pool-block checked"
         [style.background-image]="'url(\'assets/rt/'+(result.target||result.value)+'.webp\')'">
-        <span>{{result.label}}</span></div>吧！</div>
+        <span>{{result.label}}</span></div>{{text['RT.info_2b']}}</div>
   </div>
 </div>
 <div *ngIf="cusPoolModalFlag">
   <div class="warpper"></div>
   <div class="body">
     <div class="text col">
-      <p>自定义一个你想要的池子吧~</p>
+      <p textId="RT.info_3"></p>
       <br>
-      <p>名字：<input #newPool type="text" placeholder="征讨领域"></p>
+      <p textId="RT.info_4"><input #newPool type="text" placeholder="征讨领域"></p>
       <br>
       <section class="row">
-        <button class="back" (click)="cusPoolModalFlag=false">取消</button>
-        <button class="primary" (click)="createPoolSetting(newPool.value)">确定</button>
+        <button class="back" (click)="cusPoolModalFlag=false" textId="RT.btn_02"></button>
+        <button class="primary" (click)="createPoolSetting(newPool.value)" textId="RT.btn_03"></button>
       </section>
     </div>
   </div>

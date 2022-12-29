@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { Constants } from './constants/cosntants';
-import { DataService } from './core/data.service';
+import {
+  ActivationEnd,
+  NavigationEnd,
+  NavigationStart,
+  Router,
+} from '@angular/router';
+import { SystemService } from './core/system.service';
 
 @Component({
   selector: 'app-root',
@@ -11,45 +13,42 @@ import { DataService } from './core/data.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+  /** 加载指示符 */
+  isLoader = false;
+
   /**
    * 构造器
    *
-   * @param data 数据管理服务
    * @param router 路由管理服务
+   * @param system 系统服务
    */
-  constructor(private data: DataService, private router: Router) {}
+  constructor(private router: Router, private system: SystemService) {}
 
   /**
    * 程序初始处理
    */
   ngOnInit(): void {
-    // 加载本地储存数据
-    this.data.loadStorage();
-
-    // 检查储存数据版本是否一致
-    if (
-      this.data.getValue(Constants.STORAGE_VERSION_KEY) !==
-      environment.storageVerison
-    ) {
-      // 初始化储存数据
-      this.data.clearStorage();
-      this.data.saveValue(
-        Constants.STORAGE_VERSION_KEY,
-        environment.storageVerison
-      );
-      this.data.saveStorage();
-    }
-
     // 当路由完成时读取路由数据并更新标题
-    this.router.events
-      .pipe(
-        filter(
-          (event): event is ActivationEnd => event instanceof ActivationEnd
-        )
-      )
-      .subscribe((event) => {
-        const title = event.snapshot.data['title'];
-        document.title = '原神工具集' + (title ? '｜' + title : '');
-      });
+    this.router.events.subscribe((event) => {
+      switch (true) {
+        case event instanceof NavigationStart: {
+          this.isLoader = true;
+          document.body.classList.add('load');
+          break;
+        }
+        case event instanceof NavigationEnd: {
+          this.isLoader = false;
+          document.body.classList.remove('load');
+          break;
+        }
+        case event instanceof ActivationEnd: {
+          const title = (event as ActivationEnd).snapshot.data['title'];
+          document.title =
+            this.system.langText['MAIN_TITLE'] +
+            (title ? '｜' + this.system.langText[title] : '');
+          break;
+        }
+      }
+    });
   }
 }

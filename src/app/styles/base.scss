@@ -5,8 +5,12 @@ html {
 }
 
 body {
-  font-size: 10px;
+  margin: 0;
   color: #333;
+
+  &.load {
+    overflow: hidden;
+  }
 }
 
 main,

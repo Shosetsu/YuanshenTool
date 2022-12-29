@@ -5,6 +5,7 @@ export const environment = {
   storageVerison: 0.2,
   storageKeys: [
     Constants.STORAGE_VERSION_KEY,
+    Constants.SYSTEM_KEY,
     Constants.MENU_KEY,
     Constants.ROLL_TODAY_KEY,
   ],

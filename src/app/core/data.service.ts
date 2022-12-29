@@ -4,9 +4,7 @@ import { environment } from 'src/environments/environment';
 /**
  * 数据管理服务
  */
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class DataService {
   /**
    * 数据结构定义
