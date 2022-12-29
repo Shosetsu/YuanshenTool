@@ -8,7 +8,7 @@ There are source codes.
 这里是用来给gh-pages部署的编译后文件。 
 There are deploy files for gh-pages.
 
-# 当前工具（Current Tool）
+# 可用的模块（Available Modules）
 - [x] 主界面
 - [x] 今天树脂刷什么
 - [ ] 等待新的需求…或想法
