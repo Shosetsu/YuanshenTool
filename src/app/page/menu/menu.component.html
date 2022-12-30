@@ -1,7 +1,7 @@
 <main>
-  <h1 textId="MAIN_TITLE"></h1>
+  <h1 libTextId="MAIN_TITLE"></h1>
   <section>
     <a *ngFor="let link of links" [routerLink]="link.route" (click)="save(link.route)" href="javascrpit:void"
-      [textId]="link.text" [class.last]="link.route===session.lastPage"></a>
+      [libTextId]="link.text" [class.last]="link.route===session.lastPage"></a>
   </section>
 </main>

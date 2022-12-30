@@ -1,17 +1,13 @@
-import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 /**
  * 数据管理服务
  */
-@Injectable({ providedIn: 'root' })
 export class DataService {
   /**
    * 数据结构定义
    */
-  private data: { [key: string]: string } = {};
-
-  constructor() {}
+  private data: Record<string, string> = {};
 
   /**
    * 加载本地数据
@@ -45,12 +41,13 @@ export class DataService {
    * @param key 数据键名
    * @returns 数据
    */
-  getValue<T>(key: string): T {
-    let value;
+  getValue<T>(key: string, defaultValue: T): T {
+    let value: T;
     try {
       value = JSON.parse(decodeURIComponent(atob(this.data[key])));
-    } catch {}
-
+    } catch {
+      return defaultValue;
+    }
     return value;
   }
 

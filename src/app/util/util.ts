@@ -10,7 +10,7 @@ export class Util {
    * @param value  生成值的方式
    * @returns 按key分组的Map
    */
-  static groupBy<O, K extends keyof any, V>(
+  static groupBy<O, K extends string | number | symbol, V>(
     array: O[],
     key: (origin: O) => K,
     value: (origin: O) => V

@@ -4,15 +4,13 @@ import { SystemService } from '../core/system.service';
 /**
  * 自动补充文本支持指令
  */
-@Directive({
-  selector: '[textId]',
-})
+@Directive({ selector: '[libTextId]' })
 export class TextDirective {
   /**
    * 初始设置时更新节点文本内容
    */
-  @Input() set textId(textId: string) {
-    this.el.nativeElement.innerText = this.system.langText[textId];
+  @Input() set libTextId(libTextId: string) {
+    this.el.nativeElement.innerText = this.system.langText[libTextId];
   }
 
   /**

@@ -33,7 +33,7 @@ export class LoadInitial implements CanActivate {
 
     // 检查储存数据版本是否一致
     if (
-      this.data.getValue<number>(Constants.STORAGE_VERSION_KEY) !==
+      this.data.getValue<number>(Constants.STORAGE_VERSION_KEY, 0) !==
       environment.storageVerison
     ) {
       // 初始化储存数据
@@ -45,10 +45,9 @@ export class LoadInitial implements CanActivate {
     }
 
     // 获取系统数据
-    const systemData =
-      this.data.getValue<SystemData>(Constants.SYSTEM_KEY) || {};
+    const systemData = this.data.getValue<SystemData>(Constants.SYSTEM_KEY, {});
 
-    if (!systemData.language) {
+    // if (!systemData.language) {
       // 获取优先语言
       systemData.language =
         navigator.languages
@@ -66,7 +65,7 @@ export class LoadInitial implements CanActivate {
           })
           .find((lang) => lang) || 'en';
       this.data.saveValue(Constants.SYSTEM_KEY, systemData);
-    }
+    // }
 
     //通过语言获取文本配置
     this.system.langText = await fetch(

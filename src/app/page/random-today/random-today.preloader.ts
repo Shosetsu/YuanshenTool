@@ -1,25 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
-import { Observable } from 'rxjs';
 import { Constants } from 'src/app/constants/cosntants';
 import { DataService } from 'src/app/core/data.service';
 import { SystemService } from 'src/app/core/system.service';
 import { Pool, RollTodayData } from 'src/app/interface/roll-today.storage';
-import { RandomTodayComponent } from './random-today.component';
 
 /**
  * 今天树脂刷什么 的 业务预处理模块
  */
 @Injectable({ providedIn: 'root' })
-export class RandomTodayPreloader implements Resolve<RandomTodayComponent> {
+export class RandomTodayPreloader implements Resolve<boolean> {
   /** 池子一览 */
-  pools: Pool[] = [];
+  pools!: Pool[];
 
-  /** 用户自定义池子一览 */
-  customPools: Pool[] = [];
-
-  /** 用户使用的筛选状态 */
-  filters: Record<string, boolean> = {};
+  /** 储存数据 */
+  session!: RollTodayData;
 
   /**
    * 构造器
@@ -34,17 +29,17 @@ export class RandomTodayPreloader implements Resolve<RandomTodayComponent> {
    *
    * @returns
    */
-  async resolve(): Promise<Observable<any> | Promise<any> | any> {
+  async resolve(): Promise<boolean> {
     /** 避免重复初始化 */
     if (this.system.loadedModules['rt']) return true;
     this.pools = await fetch('assets/rt/pools.json').then((res) => res.json());
 
     // 读取本地储存数据
-    const session = this.data.getValue<RollTodayData>(Constants.ROLL_TODAY_KEY);
-    // 并处理（不存在时赋予默认值）
-    const memoried = session?.memoried || [];
-    this.filters = session?.filters || { artifacts: true, base: true };
-    this.customPools = session?.customPools || [];
+    this.session = this.data.getValue<RollTodayData>(Constants.ROLL_TODAY_KEY, {
+      memoried: [],
+      filters: { artifacts: true, base: true },
+      customPools: [],
+    });
 
     // 存在每日切换的特殊固定池子的生成处理
     const today = new Date(new Date().getTime() - 4 * 3_600_000);
@@ -103,7 +98,9 @@ export class RandomTodayPreloader implements Resolve<RandomTodayComponent> {
     // 初期化文本以及选中状态
     this.pools.forEach((pool) => {
       pool.label = this.system.langText[pool.label];
-      pool.isSelect = Boolean(memoried.find((memo) => memo === pool.value));
+      pool.isSelect = Boolean(
+        this.session.memoried.find((memo) => memo === pool.value)
+      );
     });
 
     return (this.system.loadedModules['rt'] = true);

@@ -1,15 +1,15 @@
 <main>
-  <h1 textId="REOLL_TODAY_TITLE"></h1>
+  <h1 libTextId="REOLL_TODAY_TITLE"></h1>
   <section>
     <div class="pool">
-      <p class="title" textId="RT.sub_title_0"></p>
-      <p textId="RT.info_0"></p>
+      <p class="title" libTextId="RT.sub_title_0"></p>
+      <p libTextId="RT.info_0"></p>
       <p class="buttons">
-        <button class="normal" (click)="checkAll()" [textId]="isAllSelect()?'RT.command_000':'RT.command_001'"></button>
-        <button class="normal" (click)="reverse()" textId="RT.command_002"></button>
-        <button class="normal" (click)="loadProfile(profile.value)" textId="RT.command_003"></button>
+        <button class="normal" (click)="checkAll()" [libTextId]="isAllSelect()?'RT.command_000':'RT.command_001'"></button>
+        <button class="normal" (click)="reverse()" libTextId="RT.command_002"></button>
+        <button class="normal" (click)="loadProfile(profile.value)" libTextId="RT.command_003"></button>
         <button class="normal" (click)="profile.value=outputProfile();profile.select()"
-          textId="RT.command_004"></button>
+          libTextId="RT.command_004"></button>
         <input [placeholder]="text['RT.info_1']" #profile>
       </p>
       <p class="filter">
@@ -42,8 +42,8 @@
     </div>
   </section>
   <section class="mb5 row">
-    <button class="back" routerLink="/" textId="RT.btn_00"></button>
-    <button class="primary" (click)="roll()" [disabled]="rolledList.length<2" textId="RT.btn_01"></button>
+    <button class="back" routerLink="/" libTextId="RT.btn_00"></button>
+    <button class="primary" (click)="roll()" [disabled]="rolledList.length<2" libTextId="RT.btn_01"></button>
   </section>
 </main>
 <div *ngIf="result" (click)="result=undefined">
@@ -58,13 +58,13 @@
   <div class="warpper"></div>
   <div class="body">
     <div class="text col">
-      <p textId="RT.info_3"></p>
+      <p libTextId="RT.info_3"></p>
       <br>
-      <p textId="RT.info_4"><input #newPool type="text" [placeholder]="text['RT.info_5']"></p>
+      <p libTextId="RT.info_4"><input #newPool type="text" [placeholder]="text['RT.info_5']"></p>
       <br>
       <section class="row">
-        <button class="back" (click)="cusPoolModalFlag=false" textId="RT.btn_02"></button>
-        <button class="primary" (click)="createPoolSetting(newPool.value)" textId="RT.btn_03"></button>
+        <button class="back" (click)="cusPoolModalFlag=false" libTextId="RT.btn_02"></button>
+        <button class="primary" (click)="createPoolSetting(newPool.value)" libTextId="RT.btn_03"></button>
       </section>
     </div>
   </div>

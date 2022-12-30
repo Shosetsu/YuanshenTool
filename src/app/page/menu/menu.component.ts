@@ -14,7 +14,7 @@ export class MenuComponent {
   /**
    * 菜单页面的储存数据
    */
-  session: { lastPage: string } = this.data.getValue(Constants.MENU_KEY) || {};
+  session: { lastPage?: string } = this.data.getValue(Constants.MENU_KEY, {});
 
   /**
    * 链接一览

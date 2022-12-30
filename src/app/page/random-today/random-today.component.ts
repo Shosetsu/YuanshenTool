@@ -19,10 +19,10 @@ export class RandomTodayComponent implements OnInit {
   private pools: Pool[] = this.preloader.pools;
 
   /** 用户自定义池子一览 */
-  customPools: Pool[] = this.preloader.customPools;
+  customPools: Pool[] = this.preloader.session.customPools;
 
   /** 用户使用的筛选状态 */
-  filters: Record<string, boolean> = this.preloader.filters;
+  filters: Record<string, boolean> = this.preloader.session.filters;
 
   /** 分组后标准池子一览 */
   processedPools: Record<string, Pool[]> = {};
