@@ -25,7 +25,7 @@ export class LoadInitial implements CanActivate {
    * @returns
    */
   async canActivate(): Promise<boolean> {
-    /** 避免重复初始化 */
+    // 避免重复初始化
     if (this.system.isInit) return true;
 
     // 加载本地储存数据
@@ -47,6 +47,7 @@ export class LoadInitial implements CanActivate {
     // 获取系统数据
     const systemData = this.data.getValue<SystemData>(Constants.SYSTEM_KEY, {});
 
+    // TODO 等做了navi再放出来
     // if (!systemData.language) {
       // 获取优先语言
       systemData.language =
@@ -82,6 +83,7 @@ export class LoadInitial implements CanActivate {
       );
     document.title = this.system.langText['MAIN_TITLE'];
 
+    // 通知初始化结束
     return (this.system.isInit = true);
   }
 }

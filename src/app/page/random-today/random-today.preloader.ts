@@ -30,8 +30,10 @@ export class RandomTodayPreloader implements Resolve<boolean> {
    * @returns
    */
   async resolve(): Promise<boolean> {
-    /** 避免重复初始化 */
+    // 避免页面模块重复初始化
     if (this.system.loadedModules['rt']) return true;
+
+    // 获取基础池子定义
     this.pools = await fetch('assets/rt/pools.json').then((res) => res.json());
 
     // 读取本地储存数据
@@ -42,58 +44,26 @@ export class RandomTodayPreloader implements Resolve<boolean> {
     });
 
     // 存在每日切换的特殊固定池子的生成处理
+    // TODO 本地时区与服务器时区不同时会出现问题 <-可我也不知道你哪个服务器
     const today = new Date(new Date().getTime() - 4 * 3_600_000);
     const weekend = today.getDay() === 0;
     const day = weekend ? 0 : (today.getDay() - 1) % 3;
 
-    this.pools.push({
-      value: 'mond_talent',
-      label: `RT.talent_1_${weekend ? 'A' : day}`,
-      type: 'other',
-      target: 'mond_talent' + day,
-    });
-    this.pools.push({
-      value: 'liyue_talent',
-      label: `RT.talent_2_${weekend ? 'A' : day}`,
-      type: 'other',
-      target: 'liyue_talent' + day,
-    });
-    this.pools.push({
-      value: 'inazuma_talent',
-      label: `RT.talent_3_${weekend ? 'A' : day}`,
-      type: 'other',
-      target: 'inazuma_talent' + day,
-    });
-    this.pools.push({
-      value: 'sumeru_talent',
-      label: `RT.talent_4_${weekend ? 'A' : day}`,
-      type: 'other',
-      target: 'sumeru_talent' + day,
-    });
-    this.pools.push({
-      value: 'mond_weapon',
-      label: `RT.weapon_1_${weekend ? 'A' : day}`,
-      type: 'other',
-      target: 'mond_weapon' + day,
-    });
-    this.pools.push({
-      value: 'liyue_weapon',
-      label: `RT.weapon_2_${weekend ? 'A' : day}`,
-      type: 'other',
-      target: 'liyue_weapon' + day,
-    });
-    this.pools.push({
-      value: 'inazuma_weapon',
-      label: `RT.weapon_3_${weekend ? 'A' : day}`,
-      type: 'other',
-      target: 'inazuma_weapon' + day,
-    });
-    this.pools.push({
-      value: 'sumeru_weapon',
-      label: `RT.weapon_4_${weekend ? 'A' : day}`,
-      type: 'other',
-      target: 'sumeru_weapon' + day,
-    });
+    // 天赋和武器
+    const typeList = ['talent', 'weapon'];
+    // 区域
+    const areaList = ['mond', 'liyue', 'inazuma', 'sumeru'];
+    // 循环添加
+    typeList.forEach((type) =>
+      areaList.forEach((area, aIndex) =>
+        this.pools.push({
+          value: area + '_' + type,
+          label: `RT.${type}_${aIndex + 1}_${weekend ? 'A' : day}`,
+          type: 'other',
+          target: area + '_' + type + day,
+        })
+      )
+    );
 
     // 初期化文本以及选中状态
     this.pools.forEach((pool) => {
@@ -103,6 +73,7 @@ export class RandomTodayPreloader implements Resolve<boolean> {
       );
     });
 
+    // 通知页面模块初始化结束
     return (this.system.loadedModules['rt'] = true);
   }
 }
