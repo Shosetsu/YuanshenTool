@@ -1,4 +1,4 @@
-import { environment } from 'src/environments/environment';
+import { StorageConstants } from '../constants/cosntants';
 
 /**
  * 数据管理服务
@@ -13,7 +13,7 @@ export class DataService {
    * 加载本地数据
    */
   loadStorage(): void {
-    environment.storageKeys.map((key) => {
+    StorageConstants.storageKeys.map((key) => {
       this.data[key] = localStorage[key];
     });
   }
@@ -22,7 +22,7 @@ export class DataService {
    * 保存本地数据
    */
   saveStorage(): void {
-    environment.storageKeys.map((key) => {
+    StorageConstants.storageKeys.map((key) => {
       localStorage[key] = this.data[key];
     });
   }

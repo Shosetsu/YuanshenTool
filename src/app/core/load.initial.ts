@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
-import { environment } from 'src/environments/environment';
-import { Constants } from '../constants/cosntants';
+import { Constants, StorageConstants } from '../constants/cosntants';
 import { SystemData } from '../interface/system.storage';
 import { DataService } from './data.service';
 import { SystemService } from './system.service';
@@ -34,13 +33,13 @@ export class LoadInitial implements CanActivate {
     // 检查储存数据版本是否一致
     if (
       this.data.getValue<number>(Constants.STORAGE_VERSION_KEY, 0) !==
-      environment.storageVerison
+      StorageConstants.storageVerison
     ) {
       // 初始化储存数据
       this.data.clearStorage();
       this.data.saveValue<number>(
         Constants.STORAGE_VERSION_KEY,
-        environment.storageVerison
+        StorageConstants.storageVerison
       );
     }
 
@@ -49,23 +48,23 @@ export class LoadInitial implements CanActivate {
 
     // TODO 等做了navi再放出来
     // if (!systemData.language) {
-      // 获取优先语言
-      systemData.language =
-        navigator.languages
-          .map((lang) => {
-            if (lang === 'zh-CN') {
-              return 'zh-cn';
-            } else if (lang === 'zh-TW') {
-              return 'zh-tw';
-            } else if (lang.startsWith('zh')) {
-              return 'zh-cn';
-            } else if (lang === 'ja') {
-              return 'ja';
-            }
-            return undefined;
-          })
-          .find((lang) => lang) || 'en';
-      this.data.saveValue(Constants.SYSTEM_KEY, systemData);
+    // 获取优先语言
+    systemData.language =
+      navigator.languages
+        .map((lang) => {
+          if (lang === 'zh-CN') {
+            return 'zh-cn';
+          } else if (lang === 'zh-TW') {
+            return 'zh-tw';
+          } else if (lang.startsWith('zh')) {
+            return 'zh-cn';
+          } else if (lang === 'ja') {
+            return 'ja';
+          }
+          return undefined;
+        })
+        .find((lang) => lang) || 'en';
+    this.data.saveValue(Constants.SYSTEM_KEY, systemData);
     // }
 
     //通过语言获取文本配置
