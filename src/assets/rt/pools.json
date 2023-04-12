@@ -11,6 +11,7 @@
   { "value": "2atk", "label": "RT.artifacts_009", "type": "artifacts" },
   { "value": "dendro", "label": "RT.artifacts_010", "type": "artifacts" },
   { "value": "flower", "label": "RT.artifacts_011", "type": "artifacts" },
+  { "value": "hp", "label": "RT.artifacts_012", "type": "artifacts" },
   { "value": "gold", "label": "RT.base_000", "type": "base" },
   { "value": "exp", "label": "RT.base_001", "type": "base" },
   { "value": "boss_anemo", "label": "RT.boss_000", "type": "boss" },
