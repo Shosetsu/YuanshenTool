@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Constants } from 'src/app/constants/cosntants';
 import { DataService } from 'src/app/core/data.service';
 import { SystemService } from 'src/app/core/system.service';
 import { Pool, RollTodayData } from 'src/app/interface/roll-today.storage';
 import { Util } from 'src/app/util/util';
-import { RandomTodayPreloader } from './random-today.preloader';
 
 /**
  * 今天树脂刷什么 页面模块
@@ -16,13 +16,14 @@ import { RandomTodayPreloader } from './random-today.preloader';
 })
 export class RandomTodayComponent implements OnInit {
   /** 选择池子一览 */
-  private pools: Pool[] = this.preloader.pools;
+  private pools: Pool[] = this.route.snapshot.data['pools'];
 
   /** 用户自定义池子一览 */
-  customPools: Pool[] = this.preloader.session.customPools;
-
-  /** 用户使用的筛选状态 */
-  filters: Record<string, boolean> = this.preloader.session.filters;
+  session = this.data.getValue<RollTodayData>(Constants.ROLL_TODAY_KEY, {
+    memoried: [],
+    filters: { artifacts: true, base: true },
+    customPools: [],
+  });
 
   /** 分组后标准池子一览 */
   processedPools: Record<string, Pool[]> = {};
@@ -37,7 +38,7 @@ export class RandomTodayComponent implements OnInit {
   cusPoolModalFlag = false;
 
   /** 本次随机结果 */
-  result?: Pool = undefined;
+  result?: Pool;
 
   /** 有效随机范围（用户在当前筛选条件下选中的一览） */
   get rolledList(): string[] {
@@ -48,8 +49,8 @@ export class RandomTodayComponent implements OnInit {
 
   /** 所有可用的池子（在当前筛选条件下的一览） */
   get availableList(): Pool[] {
-    return [...this.pools, ...this.customPools].filter(
-      (pool) => !pool.type || this.filters[pool.type]
+    return [...this.pools, ...this.session.customPools].filter(
+      (pool) => !pool.type || this.session.filters[pool.type]
     );
   }
 
@@ -57,13 +58,12 @@ export class RandomTodayComponent implements OnInit {
    * 构造器
    *
    * @param data 数据管理服务
-   * @param preloader 预处理服务
    * @param system 系统服务
    */
   constructor(
     private data: DataService,
-    private preloader: RandomTodayPreloader,
-    private system: SystemService
+    private system: SystemService,
+    private route: ActivatedRoute
   ) {}
 
   /**
@@ -157,7 +157,7 @@ export class RandomTodayComponent implements OnInit {
    * @param label 池子名字
    */
   createPoolSetting(label: string): void {
-    this.customPools.push({
+    this.session.customPools.push({
       label,
       value: 'cus' + new Date().getTime(),
       target: 'resin',
@@ -172,8 +172,8 @@ export class RandomTodayComponent implements OnInit {
    * @param pool 池子名字
    */
   removePool(pool: Pool): void {
-    const hasIndex = this.customPools.indexOf(pool);
-    this.customPools.splice(hasIndex, 1);
+    const hasIndex = this.session.customPools.indexOf(pool);
+    this.session.customPools.splice(hasIndex, 1);
     this.save();
   }
 
@@ -192,8 +192,8 @@ export class RandomTodayComponent implements OnInit {
   save(): void {
     this.data.saveValue<RollTodayData>(Constants.ROLL_TODAY_KEY, {
       memoried: this.getSelected(),
-      filters: this.filters,
-      customPools: this.customPools,
+      filters: this.session.filters,
+      customPools: this.session.customPools,
     });
   }
 

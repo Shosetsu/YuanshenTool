@@ -10,6 +10,11 @@ export class DataService {
   private data: Record<string, string> = {};
 
   /**
+   * 缓存数据定义
+   */
+  private tempData: Map<string, unknown> = new Map();
+
+  /**
    * 加载本地数据
    */
   loadStorage(): void {
@@ -60,5 +65,12 @@ export class DataService {
   saveValue<T>(key: string, value: T): void {
     this.data[key] = btoa(encodeURIComponent(JSON.stringify(value)));
     this.saveStorage();
+  }
+
+  setCache<T>(key: string, value: T): void {
+    this.tempData.set(key, value);
+  }
+  getCache<T>(key: string): T {
+    return this.tempData.get(key) as T;
   }
 }

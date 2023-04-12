@@ -5,7 +5,8 @@
       <p class="title" libTextId="RT.sub_title_0"></p>
       <p libTextId="RT.info_0"></p>
       <p class="buttons">
-        <button class="normal" (click)="checkAll()" [libTextId]="isAllSelect()?'RT.command_000':'RT.command_001'"></button>
+        <button class="normal" (click)="checkAll()"
+          [libTextId]="isAllSelect()?'RT.command_000':'RT.command_001'"></button>
         <button class="normal" (click)="reverse()" libTextId="RT.command_002"></button>
         <button class="normal" (click)="loadProfile(profile.value)" libTextId="RT.command_003"></button>
         <button class="normal" (click)="profile.value=outputProfile();profile.select()"
@@ -13,13 +14,16 @@
         <input [placeholder]="text['RT.info_1']" #profile>
       </p>
       <p class="filter">
-        <label><input type="checkbox" [(ngModel)]="filters['artifacts']"
+        <label><input type="checkbox" [(ngModel)]="session.filters['artifacts']"
             (change)="save()">{{text['RT.filter_00']}}</label>
-        <label><input type="checkbox" [(ngModel)]="filters['base']" (change)="save()">{{text['RT.filter_01']}}</label>
-        <label><input type="checkbox" [(ngModel)]="filters['boss']" (change)="save()">{{text['RT.filter_02']}}</label>
-        <label><input type="checkbox" [(ngModel)]="filters['other']" (change)="save()">{{text['RT.filter_03']}}</label>
+        <label><input type="checkbox" [(ngModel)]="session.filters['base']"
+            (change)="save()">{{text['RT.filter_01']}}</label>
+        <label><input type="checkbox" [(ngModel)]="session.filters['boss']"
+            (change)="save()">{{text['RT.filter_02']}}</label>
+        <label><input type="checkbox" [(ngModel)]="session.filters['other']"
+            (change)="save()">{{text['RT.filter_03']}}</label>
       </p>
-      <ng-template *ngFor="let type of keys(processedPools)" [ngIf]="!type||filters[type]">
+      <ng-template *ngFor="let type of keys(processedPools)" [ngIf]="!type||session.filters[type]">
         <div>
           <label class="pool-block" *ngFor="let item of processedPools[type]" [class.checked]="item.isSelect"
             [style.background-image]="'url(\'assets/rt/'+(item.target||item.value)+'.webp\')'">
@@ -30,7 +34,7 @@
         <hr>
       </ng-template>
       <div>
-        <label *ngFor="let item of customPools" class="pool-block" [class.checked]="item.isSelect"
+        <label *ngFor="let item of session.customPools" class="pool-block" [class.checked]="item.isSelect"
           [style.background-image]="'url(\'assets/rt/'+(item.target||item.value)+'.webp\')'" (click)="changePool(item)">
           <p>{{item.label}}</p>
           <a class="remove-tag" (click)="removePool(item)"></a>
@@ -51,7 +55,8 @@
   <div class="body">
     <div class="text">{{text['RT.info_2a']}}<div class="pool-block checked"
         [style.background-image]="'url(\'assets/rt/'+(result.target||result.value)+'.webp\')'">
-        <span>{{result.label}}</span></div>{{text['RT.info_2b']}}</div>
+        <span>{{result.label}}</span>
+      </div>{{text['RT.info_2b']}}</div>
   </div>
 </div>
 <div *ngIf="cusPoolModalFlag">
