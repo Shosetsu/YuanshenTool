@@ -4,7 +4,7 @@ import { Constants } from 'src/app/constants/cosntants';
 import { DataService } from 'src/app/core/data.service';
 import { SystemService } from 'src/app/core/system.service';
 import { Pool, RollTodayData } from 'src/app/interface/roll-today.storage';
-import { Util } from 'src/app/util/util';
+import { groupBy } from 'src/app/util/util';
 
 /**
  * 今天树脂刷什么 页面模块
@@ -71,7 +71,7 @@ export class RandomTodayComponent implements OnInit {
    */
   ngOnInit(): void {
     // 分组
-    this.processedPools = Util.groupBy(
+    this.processedPools = groupBy(
       this.pools,
       (o) => o.type || '',
       (o) => o

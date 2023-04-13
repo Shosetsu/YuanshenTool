@@ -1,0 +1,15 @@
+<header>
+    <ng-container *ngFor="let step of layers;let i = index">
+        <span class="dash" *ngIf="i>0">></span>
+        <span class="step" [routerLink]="step.url">{{step.name}}</span>
+    </ng-container>
+
+
+    <div class="control">
+        <select [(ngModel)]="currentLanguage" (ngModelChange)="changeLanguage()">
+            <option value="zh-cn">中文（简体）</option>
+            <option value="zh-tw">中文（繁體）</option>
+            <option value="ja">日本語</option>
+        </select>
+    </div>
+</header>

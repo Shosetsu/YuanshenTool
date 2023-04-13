@@ -37,26 +37,25 @@ export const loadInitial = async (): Promise<boolean> => {
   // 获取系统数据
   const systemData = data.getValue<SystemData>(Constants.SYSTEM_KEY, {});
 
-  // TODO 等做了navi再放出来
-  // if (!systemData.language) {
-  // 获取优先语言
-  systemData.language =
-    navigator.languages
-      .map((lang) => {
-        if (lang === 'zh-CN') {
-          return 'zh-cn';
-        } else if (lang === 'zh-TW') {
-          return 'zh-tw';
-        } else if (lang.startsWith('zh')) {
-          return 'zh-cn';
-        } else if (lang === 'ja') {
-          return 'ja';
-        }
-        return undefined;
-      })
-      .find((lang) => lang) || 'en';
-  data.saveValue(Constants.SYSTEM_KEY, systemData);
-  // }
+  if (!systemData.language) {
+    // 获取优先语言
+    systemData.language =
+      navigator.languages
+        .map((lang) => {
+          if (lang === 'zh-CN') {
+            return 'zh-cn';
+          } else if (lang === 'zh-TW') {
+            return 'zh-tw';
+          } else if (lang.startsWith('zh')) {
+            return 'zh-cn';
+          } else if (lang === 'ja') {
+            return 'ja';
+          }
+          return undefined;
+        })
+        .find((lang) => lang) || 'en';
+    data.saveValue(Constants.SYSTEM_KEY, systemData);
+  }
 
   //通过语言获取文本配置
   system.langText = await fetch(

@@ -8,6 +8,7 @@ import { DataService } from './core/data.service';
 import { MenuComponent } from './page/menu/menu.component';
 import { RandomTodayComponent } from './page/random-today/random-today.component';
 import { TextDirective } from './directive/text.directive';
+import { HeaderComponent } from './page/header/header.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { TextDirective } from './directive/text.directive';
     MenuComponent,
     RandomTodayComponent,
     TextDirective,
+    HeaderComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [SystemService, DataService],
