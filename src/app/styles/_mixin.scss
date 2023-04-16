@@ -19,7 +19,7 @@
 
 @mixin resize($width:100%) {
   @include web {
-    width: calc($width / 3);
+    width: calc($width / 2);
   }
 
   @include tb {
