@@ -1,9 +1,9 @@
-@import '../../styles/_mixin.scss';
+@import "../../styles/_mixin.scss";
 
 a {
   @include resize(75%);
-  background: #f2fcfe;
-  border: #d4d3dd 1px solid;
+  background: #fff0e0;
+  border: #f9dcc4 1px solid;
   border-radius: 5rem;
 
   font-size: 1.2rem;
@@ -13,10 +13,10 @@ a {
   text-align: center;
 
   &:hover {
-    background: #ee9ca7;
+    background: #fcd5ce;
   }
 
   &.last::after {
-    content: '★';
+    content: "★";
   }
 }
