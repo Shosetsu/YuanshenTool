@@ -11,6 +11,7 @@ There are deploy files for gh-pages.
 # 可用的模块（Available Modules）
 - [x] [主界面](https://shosetsu.github.io/YuanshenTool)
 - [x] [今天树脂刷什么](https://shosetsu.github.io/YuanshenTool/today)
+- [x] [树脂去哪了](https://shosetsu.github.io/YuanshenTool/resin)
 - [ ] 等待新的需求…或想法
 
 
