@@ -1,9 +1,11 @@
 {
   "MAIN_TITLE": "原神工具集",
   "REOLL_TODAY_TITLE": "今天树脂刷什么",
+  "RESIN_MEMO_TITLE": "树脂去哪了",
 
-  "MENU.link_00":"工具1: 今天树脂刷什么",
-  "MENU.link_01":"工具2: 咕咕咕，待定…",
+  "MENU.link_00": "工具1: 今天树脂刷什么",
+  "MENU.link_01": "工具2: 看看过期了多少树脂",
+  "MENU.link_02": "工具3: 咕咕咕，待定…",
 
   "RT.sub_title_0": "随机池",
   "RT.info_0": "从下面的列表中勾选中所有你想要随机的树脂消耗目标。",
@@ -97,5 +99,23 @@
   "RT.weapon_4_A": "须弥武器（全）",
   "RT.weapon_4_0": "须弥武器（金符）",
   "RT.weapon_4_1": "须弥武器（盘子）",
-  "RT.weapon_4_2": "须弥武器（徽章）"
+  "RT.weapon_4_2": "须弥武器（徽章）",
+
+  "RM.label_00": "当前树脂：",
+  "RM.label_01": "什么时候满：",
+  "RM.label_02": "溢出天然树脂",
+  "RM.label_03": "个！",
+  "RM.label_04": "名字",
+  "RM.label_05": "树脂还有多久满",
+
+  "RM.input_info_00": "名字~",
+
+  "RM.btn_00": "修改",
+  "RM.btn_01": "删除",
+  "RM.btn_02": "取消",
+  "RM.btn_03": "追加",
+
+  "RM.action_00": "浓缩消耗40",
+  "RM.action_01": "简单消耗20",
+  "RM.action_02": "锻矿消耗10"
 }

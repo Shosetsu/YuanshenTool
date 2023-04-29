@@ -1,9 +1,11 @@
 {
   "MAIN_TITLE": "原神工具集",
   "REOLL_TODAY_TITLE": "今天樹脂刷什麼",
+  "RESIN_MEMO_TITLE": "樹脂去哪了QAQ",
 
-  "MENU.link_00":"工具1: 今天樹脂刷什麼",
-  "MENU.link_01":"工具2: 咕咕咕，待定…",
+  "MENU.link_00": "工具1: 今天樹脂刷什麼",
+  "MENU.link_01": "工具2: 看看過期了多少樹脂",
+  "MENU.link_02": "工具3: 咕咕咕，待定…",
 
   "RT.sub_title_0": "隨機池",
   "RT.info_0": "從下面的列表中勾選中所有你想要隨機的樹脂消耗目標。",
@@ -97,5 +99,23 @@
   "RT.weapon_4_A": "須彌武器（全）",
   "RT.weapon_4_0": "須彌武器（金符）",
   "RT.weapon_4_1": "須彌武器（盤子）",
-  "RT.weapon_4_2": "須彌武器（徽章）"
+  "RT.weapon_4_2": "須彌武器（徽章）",
+
+  "RM.label_00": "当前樹脂：",
+  "RM.label_01": "什麼時候滿：",
+  "RM.label_02": "溢出天然樹脂",
+  "RM.label_03": "個！",
+  "RM.label_04": "名字",
+  "RM.label_05": "樹脂還有多久滿",
+
+  "RM.input_info_00": "名字~",
+
+  "RM.btn_00": "修改",
+  "RM.btn_01": "刪除",
+  "RM.btn_02": "取消",
+  "RM.btn_03": "追加",
+
+  "RM.action_00": "濃縮消耗40",
+  "RM.action_01": "簡單消耗20",
+  "RM.action_02": "鍛礦消耗10"
 }
