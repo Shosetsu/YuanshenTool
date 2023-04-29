@@ -7,8 +7,7 @@
 
   border-radius: 1rem;
   margin-bottom: 1rem;
-  padding: 1rem 2rem;
-
+  padding: 1rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
 
   display: grid;
@@ -47,6 +46,9 @@
   .command-block {
     display: grid;
     grid-template-columns: repeat(5, auto);
+    @include sm {
+      grid-template-columns: repeat(3, auto);
+    }
     gap: 0.5rem;
 
     button {
@@ -82,6 +84,8 @@
 .edit {
   justify-items: center;
   align-items: center;
+  row-gap: 1rem;
+
   label {
     display: grid;
     justify-items: center;

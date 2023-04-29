@@ -32,8 +32,9 @@
         <div class="sum">{{getSumLostResin(memo.value)}}</div>
       </div>
       <div class="resin-block edit" *ngIf="memo.value.status==='edit'" (keyup.enter)="addBlock()">
-        <label><span libTextId="RM.label_04"></span><input [(ngModel)]="temp.name" disabled></label>
-        <label><span libTextId="RM.label_05"></span><input placeholder="hh:mm:ss" [(ngModel)]="temp.time"></label>
+        <label class="sm-block"><span libTextId="RM.label_04"></span><input [(ngModel)]="temp.name" disabled></label>
+        <label class="sm-block"><span libTextId="RM.label_05"></span><input placeholder="hh:mm:ss"
+            [(ngModel)]="temp.time"></label>
         <div class="button-block block">
           <button libTextId="RM.btn_02" class="back" (click)="memo.value.status='info';resetInput()"></button>
           <button libTextId="RM.btn_00" class="primary" (click)="addBlock()"></button>
@@ -41,9 +42,10 @@
       </div>
     </ng-container>
     <div class="resin-block edit" *ngIf="isNewProcess" (keyup.enter)="addBlock()">
-      <label><span libTextId="RM.label_04"></span><input [placeholder]="text['RM.input_info_00']"
+      <label class="sm-block"><span libTextId="RM.label_04"></span><input [placeholder]="text['RM.input_info_00']"
           [(ngModel)]="temp.name"></label>
-      <label><span libTextId="RM.label_05"></span><input placeholder="hh:mm:ss" [(ngModel)]="temp.time"></label>
+      <label class="sm-block"><span libTextId="RM.label_05"></span><input placeholder="hh:mm:ss"
+          [(ngModel)]="temp.time"></label>
       <div class="button-block block">
         <button libTextId="RM.btn_02" class="back" (click)="resetInput()"></button>
         <button libTextId="RM.btn_03" class="primary" (click)="addBlock()"></button>
