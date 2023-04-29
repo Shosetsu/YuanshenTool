@@ -79,7 +79,7 @@ export class ResinMemoComponent implements OnDestroy {
   }
 
   toDate(date: number): string {
-    return new Date(date).toLocaleString();
+    return new Date(date).toLocaleDateString();
   }
   getResinByDiff(diff: number): number {
     return Math.floor(diff / 480000);

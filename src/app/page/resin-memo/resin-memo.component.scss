@@ -34,6 +34,28 @@
     user-select: none;
   }
 
+  .sm-block {
+    @include sm {
+      grid-column: 1/3;
+    }
+  }
+
+  .lost {
+    padding: 1em 0;
+  }
+
+  .command-block {
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    gap: 0.5rem;
+
+    button {
+      margin-left: 0.5rem;
+      padding: 0.5rem 0.7rem;
+      border-radius: 2rem;
+    }
+  }
+
   .block {
     grid-column: 1/3;
   }
