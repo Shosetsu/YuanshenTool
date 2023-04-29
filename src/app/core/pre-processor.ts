@@ -23,15 +23,14 @@ export const loadInitial = async (): Promise<boolean> => {
 
   // 检查储存数据版本是否一致
   if (
-    data.getValue<number>(Constants.STORAGE_VERSION_KEY, 0) !==
+    localStorage[Constants.STORAGE_VERSION_KEY] !==
     StorageConstants.storageVerison
   ) {
     // 初始化储存数据
     data.clearStorage();
-    data.saveValue<number>(
-      Constants.STORAGE_VERSION_KEY,
-      StorageConstants.storageVerison
-    );
+    localStorage[Constants.STORAGE_VERSION_KEY] =
+      StorageConstants.storageVerison;
+    location.reload();
   }
 
   // 获取系统数据

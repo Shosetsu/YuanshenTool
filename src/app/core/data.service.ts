@@ -7,7 +7,8 @@ export class DataService {
   /**
    * 数据结构定义
    */
-  private data: Record<string, string> = {};
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private data: Record<string, any> = {};
 
   /**
    * 缓存数据定义
@@ -18,18 +19,18 @@ export class DataService {
    * 加载本地数据
    */
   loadStorage(): void {
-    StorageConstants.storageKeys.map((key) => {
-      this.data[key] = localStorage[key];
-    });
+    try {
+      this.data = JSON.parse(localStorage[StorageConstants.storageKey]);
+    } catch {
+      this.data = {};
+    }
   }
 
   /**
    * 保存本地数据
    */
   saveStorage(): void {
-    StorageConstants.storageKeys.map((key) => {
-      localStorage[key] = this.data[key];
-    });
+    localStorage[StorageConstants.storageKey] = JSON.stringify(this.data);
   }
 
   /**
@@ -47,13 +48,7 @@ export class DataService {
    * @returns 数据
    */
   getValue<T>(key: string, defaultValue: T): T {
-    let value: T;
-    try {
-      value = JSON.parse(decodeURIComponent(atob(this.data[key])));
-    } catch {
-      return defaultValue;
-    }
-    return value;
+    return this.data[key] ?? defaultValue;
   }
 
   /**
@@ -63,7 +58,7 @@ export class DataService {
    * @param value 数据
    */
   saveValue<T>(key: string, value: T): void {
-    this.data[key] = btoa(encodeURIComponent(JSON.stringify(value)));
+    this.data[key] = value;
     this.saveStorage();
   }
 
