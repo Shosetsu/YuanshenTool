@@ -5,6 +5,7 @@ import { MenuComponent } from './page/menu/menu.component';
 import { RandomTodayComponent } from './page/random-today/random-today.component';
 import { preloaderPools } from './page/random-today/random-today.preloader';
 import { getTitle } from './util/util';
+import { ResinMemoComponent } from './page/resin-memo/resin-memo.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,13 @@ const routes: Routes = [
     canActivate: [loadInitial],
     data: { order: 1 },
     component: RandomTodayComponent,
+  },
+  {
+    path: 'resin',
+    title: () => getTitle('RESIN_MEMO_TITLE'),
+    canActivate: [loadInitial],
+    data: { order: 1 },
+    component: ResinMemoComponent,
   },
   {
     path: '',

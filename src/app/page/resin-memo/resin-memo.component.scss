@@ -1,0 +1,100 @@
+@import "../../styles/_mixin.scss";
+
+.resin-block {
+  @include resizeFull(90%);
+  position: relative;
+  min-height: 10rem;
+
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  padding: 1rem 2rem;
+
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+
+  display: grid;
+  justify-items: stretch;
+  align-items: start;
+  grid-template-columns: 1fr 1fr;
+
+  background: linear-gradient(
+    to bottom,
+    hsla(208, 97%, 87%, 0.5),
+    hsla(337, 100%, 89%, 0.5)
+  );
+
+  .title {
+    text-shadow: 0 0.5px 1px #333;
+    display: flex;
+    padding-right: 2rem;
+
+    div {
+      margin-left: auto;
+    }
+
+    user-select: none;
+  }
+
+  .block {
+    grid-column: 1/3;
+  }
+
+  .sum {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    text-align: right;
+    user-select: none;
+  }
+
+  a {
+    margin-left: 0.5rem;
+    padding: 0.5rem 0.7rem;
+    border-radius: 2rem;
+  }
+
+  .info {
+    background-color: #eeea;
+  }
+}
+
+.edit {
+  justify-items: center;
+  align-items: center;
+  label {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+
+    span {
+      text-shadow: 0 0.5px 1px #333;
+      font-size: 1.2rem;
+    }
+    * {
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      font-size: 1rem;
+    }
+  }
+
+  .button-block {
+    display: flex;
+  }
+}
+
+.new {
+  justify-items: center;
+  align-items: center;
+
+  .new-image {
+    background: url(^assets/plus1.svg) center center no-repeat;
+    background-size: contain;
+    height: 6rem;
+    width: 6rem;
+    opacity: 0.8;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+}

@@ -1,0 +1,53 @@
+<main>
+  <h1 libTextId="RESIN_MEMO_TITLE"></h1>
+  <section>
+    <ng-container *ngFor="let memo of session.logs | keyvalue:orginalOrder">
+      <div class="resin-block" *ngIf="memo.value.status!=='edit'" [ngStyle]="{
+        'background': 'linear-gradient(to top,hsla(337, 100%, 89%, 0.5) '+getResin(memo.value)/1.6+'%,hsla(208, 97%, 87%, 0.5) '+getResin(memo.value)/1.6+'%)'
+      }">
+        <div class="title block">
+          <p>{{memo.key}}</p>
+          <div>
+            <a class="info" libTextId="RM.btn_00" (click)="modify(memo.key)"></a>
+            <a class="info" libTextId="RM.btn_01" (click)="remove(memo.key)"></a>
+          </div>
+        </div>
+        <div>
+          <p><span libTextId="RM.label_00"></span>{{getResin(memo.value)}}</p>
+          <p><span libTextId="RM.label_01"></span>{{memoTime[memo.key] | async | timer}}</p>
+        </div>
+        <div>
+          <p *ngFor="let lost of memo.value.lostTime">
+            {{toDate(lost.now)}} <span libTextId="RM.label_02"></span>{{getResinByDiff(lost.diff)}}<span
+              libTextId="RM.label_03"></span>
+          </p>
+        </div>
+        <div class="button-block block">
+          <button class="primary info" (click)="minusResin(memo.value,40)" libTextId="RM.action_00"></button>
+          <button class="primary info" (click)="minusResin(memo.value,20)" libTextId="RM.action_01"></button>
+          <button class="primary info" (click)="minusResin(memo.value,10)" libTextId="RM.action_02"></button>
+        </div>
+        <div class="sum">{{getSumLostResin(memo.value)}}</div>
+      </div>
+      <div class="resin-block edit" *ngIf="memo.value.status==='edit'" (keyup.enter)="addBlock()">
+        <label><span libTextId="RM.label_04"></span><input [(ngModel)]="temp.name" disabled></label>
+        <label><span libTextId="RM.label_05"></span><input placeholder="hh:mm:ss" [(ngModel)]="temp.time"></label>
+        <div class="button-block block">
+          <button libTextId="RM.btn_02" class="back" (click)="memo.value.status='info';resetInput()"></button>
+          <button libTextId="RM.btn_00" class="primary" (click)="addBlock()"></button>
+        </div>
+      </div>
+    </ng-container>
+    <div class="resin-block edit" *ngIf="isNewProcess" (keyup.enter)="addBlock()">
+      <label><span libTextId="RM.label_04"></span><input [placeholder]="text['RM.input_info_00']" [(ngModel)]="temp.name"></label>
+      <label><span libTextId="RM.label_05"></span><input placeholder="hh:mm:ss" [(ngModel)]="temp.time"></label>
+      <div class="button-block block">
+        <button libTextId="RM.btn_02" class="back" (click)="resetInput()"></button>
+        <button libTextId="RM.btn_03" class="primary" (click)="addBlock()"></button>
+      </div>
+    </div>
+    <div class="resin-block new" *ngIf="!isNewProcess" (click)="isNewProcess=true">
+      <div class="new-image block"></div>
+    </div>
+  </section>
+</main>

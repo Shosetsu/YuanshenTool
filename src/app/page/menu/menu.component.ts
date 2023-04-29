@@ -21,7 +21,8 @@ export class MenuComponent {
    */
   links = [
     { route: 'today', text: 'MENU.link_00' },
-    { route: 'test', text: 'MENU.link_01' },
+    { route: 'resin', text: 'MENU.link_01' },
+    { route: 'test', text: 'MENU.link_02' },
   ];
 
   /**

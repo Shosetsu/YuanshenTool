@@ -69,7 +69,6 @@ export const loadInitial = async (): Promise<boolean> => {
     .catch(() =>
       fetch(`assets/lang/lang_zh-cn.json`).then((res) => res.json())
     );
-  document.title = system.langText['MAIN_TITLE'];
 
   // 通知初始化结束
   return (system.isInit = true);
