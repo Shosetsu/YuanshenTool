@@ -59,6 +59,7 @@ export class RandomTodayComponent implements OnInit {
    *
    * @param data 数据管理服务
    * @param system 系统服务
+   * @param route 路由服务
    */
   constructor(
     private data: DataService,

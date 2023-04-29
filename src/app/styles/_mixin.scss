@@ -1,11 +1,11 @@
 @mixin web {
-  @media screen and (min-width:851px) {
+  @media screen and (min-width:1024px) {
     @content;
   }
 }
 
 @mixin tb {
-  @media screen and (min-width:451px) and (max-width:850px) {
+  @media screen and (min-width:451px) and (max-width:1023px) {
     @content;
   }
 }

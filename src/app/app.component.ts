@@ -1,11 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  ActivationEnd,
-  NavigationEnd,
-  NavigationStart,
-  Router,
-} from '@angular/router';
-import { loadInitial } from './core/pre-processor';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -21,9 +15,7 @@ export class AppComponent implements OnInit {
    *
    * @param router 路由管理服务
    */
-  constructor(private router: Router) {
-    loadInitial();
-  }
+  constructor(private router: Router) {}
 
   /**
    * 程序初始处理
