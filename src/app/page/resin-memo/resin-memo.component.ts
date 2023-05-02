@@ -96,7 +96,7 @@ export class ResinMemoComponent implements OnDestroy {
 
     if (memo.endTime < now) {
       memo.lostTime.push({ now, diff: now - memo.endTime });
-      tempEnd = now + 480000;
+      tempEnd = now;
     }
     memo.endTime = tempEnd + count * 480000;
     this.save();
