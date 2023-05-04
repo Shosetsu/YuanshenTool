@@ -34,5 +34,7 @@
   { "value": "boss_electro3", "label": "RT.boss_017", "type": "boss" },
   { "value": "boss_physical2", "label": "RT.boss_018", "type": "boss" },
   { "value": "boss_physical3", "label": "RT.boss_019", "type": "boss" },
-  { "value": "boss_dendro2", "label": "RT.boss_020", "type": "boss" }
+  { "value": "boss_dendro2", "label": "RT.boss_020", "type": "boss" },
+  { "value": "boss_wenut", "label": "RT.boss_021", "type": "boss" },
+  { "value": "boss_abyss", "label": "RT.boss_022", "type": "boss" }
 ]
