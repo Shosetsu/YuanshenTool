@@ -3,7 +3,7 @@
   <section>
     <ng-container *ngFor="let memo of session.logs | keyvalue:orginalOrder">
       <div class="resin-block" *ngIf="memo.value.status!=='edit'" [ngStyle]="{
-        'background': 'linear-gradient(to top,hsla(337, 100%, 89%, 0.5) '+getResin(memo.value)/1.6+'%,hsla(208, 97%, 87%, 0.5) '+getResin(memo.value)/1.6+'%)'
+        'background': 'linear-gradient(to bottom,hsla(9, 48%, 95%, 0.5) '+getResin(memo.value)/1.6+'%,hsla(9, 88%, 90%, 0.5) '+getResin(memo.value)/1.6+'%)'
       }">
         <div class="title block">
           <p>{{memo.key}}</p>
